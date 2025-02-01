@@ -1,8 +1,9 @@
 import {JSX} from 'react';
 import {OfferListItem} from '../types/offer.tsx';
-import {Classes} from '../constants/constants.tsx';
+import {AppRoute, Classes} from '../constants/constants.tsx';
 import clsx from 'clsx';
-import Badge from './badge.tsx';
+import BadgeOfferMark from './badge-offer-mark.tsx';
+import {Link} from 'react-router-dom';
 
 type CitiesCardProp = {
   offer: OfferListItem;
@@ -27,11 +28,11 @@ function Card({offer, classType, sizeImage}: CitiesCardProp): JSX.Element {
 
   return (
     <article className={`${cardClasses.wrapper} place-card`}>
-      {isPremium && <Badge text={'Premium'} classType={'city'}/>}
+      {isPremium && <BadgeOfferMark text='Premium' classType='city'/>}
       <div className={`${cardClasses.imageWrapper} place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={AppRoute.Root}>
           <img className="place-card__image" src={previewImage} width={sizeImage.width} height={sizeImage.height} alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -53,7 +54,7 @@ function Card({offer, classType, sizeImage}: CitiesCardProp): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={AppRoute.Root}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

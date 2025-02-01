@@ -1,4 +1,7 @@
 import {JSX} from 'react';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '@/constants/constants.tsx';
+
 
 type LocationsItemProps = {
   isActive: boolean;
@@ -6,11 +9,12 @@ type LocationsItemProps = {
 }
 
 function MainLocationsItem({isActive, city}: LocationsItemProps): JSX.Element {
+
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} href="#">
+      <Link className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} to={AppRoute.Root}>
         <span>{city}</span>
-      </a>
+      </Link>
     </li>
   );
 }

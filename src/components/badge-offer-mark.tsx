@@ -6,7 +6,7 @@ type BadgeProps = {
   classType: 'city' | 'offer';
 }
 
-function Badge({text, classType}: BadgeProps): JSX.Element {
+function BadgeOfferMark({text, classType}: BadgeProps): JSX.Element {
   const badgeClass = Classes[classType];
 
   return (
@@ -16,4 +16,4 @@ function Badge({text, classType}: BadgeProps): JSX.Element {
   );
 }
 
-export default Badge;
+export default BadgeOfferMark;

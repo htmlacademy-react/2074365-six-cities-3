@@ -1,6 +1,6 @@
 import {JSX} from 'react';
-import {favoritesMock} from '../../../mock/favorites-mock.tsx';
 import FavoritesItems from './favorites-items.tsx';
+import {favoritesMock} from '@/mock/favorites-mock.tsx';
 
 function FavoritesList(): JSX.Element {
   const favorites = favoritesMock;

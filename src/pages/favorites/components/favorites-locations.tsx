@@ -1,13 +1,16 @@
 import {JSX} from 'react';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '@/constants/constants.tsx';
 
 
 function FavoritesLocations({city}: { city: string }): JSX.Element {
+
   return (
     <div className="favorites__locations locations locations--current">
       <div className="locations__item">
-        <a className="locations__item-link" href="#">
+        <Link className="locations__item-link" to={AppRoute.Root}>
           <span>{city}</span>
-        </a>
+        </Link>
       </div>
     </div>
   );
