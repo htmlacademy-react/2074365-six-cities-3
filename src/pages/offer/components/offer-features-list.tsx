@@ -1,6 +1,7 @@
 import {JSX} from 'react';
 
 function OfferFeaturesList(): JSX.Element {
+
   return (
     <ul className="offer__features">
       <li className="offer__feature offer__feature--entire">

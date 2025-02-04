@@ -7,6 +7,7 @@ type PlacesOptionProps = {
 }
 
 function MainPlacesOption({isActive, sortType}: PlacesOptionProps): JSX.Element {
+
   return (
     <li className={clsx('places__option', isActive && 'places__option--active')} tabIndex={0}>{sortType}</li>
   );

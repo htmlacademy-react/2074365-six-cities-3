@@ -1,7 +1,7 @@
 import {JSX} from 'react';
 import FavoritesLocations from './favorites-locations.tsx';
-import Card from '../../../components/card.tsx';
-import {OfferListItem} from '../../../types/offer.tsx';
+import Card from '@/components/card.tsx';
+import {OfferListItem} from '@/types/offer.tsx';
 
 type FavoritesItemsProps = {
   city: string;
@@ -9,6 +9,7 @@ type FavoritesItemsProps = {
 }
 
 function FavoritesItems({city, offers}: FavoritesItemsProps): JSX.Element {
+
   return (
     <li className="favorites__locations-items">
       <FavoritesLocations city={city}/>
@@ -17,7 +18,7 @@ function FavoritesItems({city, offers}: FavoritesItemsProps): JSX.Element {
           .map((value) => (
             <Card
               offer={value}
-              classType={'favorite'}
+              classType="favorite"
               sizeImage={{width: 150, height: 110}}
               key={value.id}
             />

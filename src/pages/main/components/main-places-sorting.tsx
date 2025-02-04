@@ -2,6 +2,7 @@ import {JSX} from 'react';
 import MainPlacesOptions from './main-places-options.tsx';
 
 function MainPlacesSorting(): JSX.Element {
+
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>

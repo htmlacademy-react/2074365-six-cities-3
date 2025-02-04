@@ -32,3 +32,20 @@ export const Classes = {
     mark: 'offer__mark'
   }
 } as const;
+
+export const AppRoute = {
+  Root: '/',
+  Login: '/login',
+  Favorites: '/favorites',
+  Offer: '/offer/:id',
+} as const;
+
+export type AppRouteType = (typeof AppRoute)[keyof typeof AppRoute];
+
+export const AuthorizationStatus = {
+  Auth: 'AUTH',
+  NoAuth: 'NO_AUTH',
+  Unknown: 'UNKNOWN',
+} as const;
+
+export type AuthorizationStatusType = (typeof AuthorizationStatus)[keyof typeof AuthorizationStatus];

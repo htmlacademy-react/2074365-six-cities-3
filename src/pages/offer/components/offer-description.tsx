@@ -1,6 +1,7 @@
 import {JSX} from 'react';
 
 function OfferDescription(): JSX.Element {
+
   return (
     <div className="offer__description">
       <p className="offer__text">
