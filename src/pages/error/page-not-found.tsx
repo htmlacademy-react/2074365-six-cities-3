@@ -1,7 +1,7 @@
 import {JSX} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '@/constants/constants.tsx';
-import style from 'src/css/404-style.module.css';
+import style from './page-not-found.module.css';
 
 function PageNotFound(): JSX.Element {
 

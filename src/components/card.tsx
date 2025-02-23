@@ -9,9 +9,10 @@ type CitiesCardProp = {
   offer: OfferListItem;
   classType: 'city' | 'favorite' | 'offer';
   sizeImage: { width: number; height: number };
+  offerStateHandler: (offer?: OfferListItem) => void;
 }
 
-function Card({offer, classType, sizeImage}: CitiesCardProp): JSX.Element {
+function Card({offer, classType, sizeImage, offerStateHandler}: CitiesCardProp): JSX.Element {
   const cardClasses = Classes[classType];
 
   const {
@@ -26,12 +27,25 @@ function Card({offer, classType, sizeImage}: CitiesCardProp): JSX.Element {
 
   const ratingInPercent = (rating / 5) * 100;
 
+  const mouseEnterHandler = () => offerStateHandler(offer);
+  const mouseLeaveHandler = () => offerStateHandler();
+
   return (
-    <article className={`${cardClasses.wrapper} place-card`}>
+    <article
+      className={`${cardClasses.wrapper} place-card`}
+      onMouseEnter={mouseEnterHandler}
+      onMouseLeave={mouseLeaveHandler}
+    >
       {isPremium && <BadgeOfferMark text='Premium' classType='city'/>}
       <div className={`${cardClasses.imageWrapper} place-card__image-wrapper`}>
-        <Link to={AppRoute.Root}>
-          <img className="place-card__image" src={previewImage} width={sizeImage.width} height={sizeImage.height} alt="Place image"/>
+        <Link to={AppRoute.Offer.replace(':id', offer.id)}>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={sizeImage.width}
+            height={sizeImage.height}
+            alt="Place image"
+          />
         </Link>
       </div>
       <div className="place-card__info">
@@ -40,7 +54,10 @@ function Card({offer, classType, sizeImage}: CitiesCardProp): JSX.Element {
             <b className="place-card__price-value">&euro;{`${price}`}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={clsx('place-card__bookmark-button', 'button', isFavorite && 'place-card__bookmark-button--active')} type="button">
+          <button
+            className={clsx('place-card__bookmark-button', 'button', isFavorite && 'place-card__bookmark-button--active')}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -50,7 +67,7 @@ function Card({offer, classType, sizeImage}: CitiesCardProp): JSX.Element {
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             <span style={{width: `${ratingInPercent}%`}}></span>
-            <span className="visually-hidden">Rating</span>
+            <span className="visually-hidden">Rating</span>F
           </div>
         </div>
         <h2 className="place-card__name">

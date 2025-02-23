@@ -49,3 +49,11 @@ export const AuthorizationStatus = {
 } as const;
 
 export type AuthorizationStatusType = (typeof AuthorizationStatus)[keyof typeof AuthorizationStatus];
+
+export const Rating = [
+  {value: 1, label: 'terribly'},
+  {value: 2, label: 'badly'},
+  {value: 3, label: 'not bad'},
+  {value: 4, label: 'good'},
+  {value: 5, label: 'perfect'}
+] as const;

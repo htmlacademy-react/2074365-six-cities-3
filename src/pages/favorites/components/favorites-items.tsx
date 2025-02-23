@@ -1,7 +1,8 @@
-import {JSX} from 'react';
+import {JSX, useState} from 'react';
 import FavoritesLocations from './favorites-locations.tsx';
 import Card from '@/components/card.tsx';
 import {OfferListItem} from '@/types/offer.tsx';
+import {Nullable} from 'vitest';
 
 type FavoritesItemsProps = {
   city: string;
@@ -9,6 +10,12 @@ type FavoritesItemsProps = {
 }
 
 function FavoritesItems({city, offers}: FavoritesItemsProps): JSX.Element {
+
+  const [, setActiveOffer] = useState<Nullable<OfferListItem>>(null);
+
+  const offerStateHandler = (offer?: OfferListItem) => {
+    setActiveOffer(offer || null);
+  };
 
   return (
     <li className="favorites__locations-items">
@@ -20,6 +27,7 @@ function FavoritesItems({city, offers}: FavoritesItemsProps): JSX.Element {
               offer={value}
               classType="favorite"
               sizeImage={{width: 150, height: 110}}
+              offerStateHandler={offerStateHandler}
               key={value.id}
             />
           ))}
