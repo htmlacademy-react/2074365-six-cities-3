@@ -1,18 +1,20 @@
 import {JSX} from 'react';
 import {OfferListItem} from '../types/offer.tsx';
 import {AppRoute, Classes} from '../constants/constants.tsx';
-import clsx from 'clsx';
 import BadgeOfferMark from './badge-offer-mark.tsx';
-import {Link} from 'react-router-dom';
+import {generatePath, Link} from 'react-router-dom';
+import {calculateRatingInPercent} from '@/utils/calculation-helper.ts';
+import {capitalizeWord} from '@/utils/string-helper.ts';
+import BookmarkButton from 'components/bookmark-button.tsx';
 
 type CitiesCardProp = {
   offer: OfferListItem;
   classType: 'city' | 'favorite' | 'offer';
   sizeImage: { width: number; height: number };
-  offerStateHandler: (offer?: OfferListItem) => void;
+  onCardHover?: (id?: string) => void;
 }
 
-function Card({offer, classType, sizeImage, offerStateHandler}: CitiesCardProp): JSX.Element {
+function Card({offer, classType, sizeImage, onCardHover}: CitiesCardProp): JSX.Element {
   const cardClasses = Classes[classType];
 
   const {
@@ -25,20 +27,20 @@ function Card({offer, classType, sizeImage, offerStateHandler}: CitiesCardProp):
     rating
   } = offer;
 
-  const ratingInPercent = (rating / 5) * 100;
+  const ratingInPercent = calculateRatingInPercent(rating);
 
-  const mouseEnterHandler = () => offerStateHandler(offer);
-  const mouseLeaveHandler = () => offerStateHandler();
+  const handleMouseEnter = () => onCardHover?.(offer?.id);
+  const handleMouseLeave = () => onCardHover?.();
 
   return (
     <article
       className={`${cardClasses.wrapper} place-card`}
-      onMouseEnter={mouseEnterHandler}
-      onMouseLeave={mouseLeaveHandler}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {isPremium && <BadgeOfferMark text='Premium' classType='city'/>}
       <div className={`${cardClasses.imageWrapper} place-card__image-wrapper`}>
-        <Link to={AppRoute.Offer.replace(':id', offer.id)}>
+        <Link to={generatePath(AppRoute.Offer, {id: offer.id})}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -54,26 +56,25 @@ function Card({offer, classType, sizeImage, offerStateHandler}: CitiesCardProp):
             <b className="place-card__price-value">&euro;{`${price}`}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={clsx('place-card__bookmark-button', 'button', isFavorite && 'place-card__bookmark-button--active')}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton
+            width={'18'}
+            height={'19'}
+            isFavorite={isFavorite}
+            classType={'card'}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             <span style={{width: `${ratingInPercent}%`}}></span>
-            <span className="visually-hidden">Rating</span>F
+            <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Root}>{title}</Link>
+          <Link to={generatePath(AppRoute.Offer, {id: offer.id})}>
+            {title}
+          </Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalizeWord(type)}</p>
       </div>
     </article>
   );

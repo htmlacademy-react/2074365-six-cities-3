@@ -13,6 +13,7 @@ import {OfferDetail} from '@/types/offer.tsx';
 import PageNotFound from '../error/page-not-found.tsx';
 import clsx from 'clsx';
 import OfferUserStatus from '@/pages/offer/components/offer-user-status.tsx';
+import BookmarkButton from 'components/bookmark-button.tsx';
 
 
 function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Element {
@@ -30,6 +31,7 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
     price,
     title,
     isPremium,
+    isFavorite
   } = offer;
 
   const {
@@ -49,12 +51,12 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
             {isPremium && <BadgeOfferMark text='Premium' classType='offer'/>}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">{title}</h1>
-              <button className="offer__bookmark-button button" type="button">
-                <svg className="offer__bookmark-icon" width="31" height="33">
-                  <use xlinkHref="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <BookmarkButton
+                width={'31'}
+                height={'33'}
+                isFavorite={isFavorite}
+                classType={'offer'}
+              />
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
@@ -72,7 +74,9 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
             <div className="offer__host">
               <h2 className="offer__host-title">Meet the host</h2>
               <div className="offer__host-user user">
-                <div className={clsx('offer__avatar-wrapper', `${isPro && 'offer__avatar-wrapper--pro'}`, 'user__avatar-wrapper')}>
+                <div
+                  className={clsx('offer__avatar-wrapper', `${isPro && 'offer__avatar-wrapper--pro'}`, 'user__avatar-wrapper')}
+                >
                   <img className="offer__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar"/>
                 </div>
                 <span className="offer__user-name">{name}</span>

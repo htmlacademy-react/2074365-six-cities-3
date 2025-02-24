@@ -48,7 +48,7 @@ export const offerDetailMock = [
       'avatarUrl': 'https://15.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
     },
     'isPremium': true,
-    'isFavorite': false,
+    'isFavorite': true,
     'rating': 1.1,
     'bedrooms': 1,
     'maxAdults': 8
