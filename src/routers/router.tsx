@@ -13,7 +13,7 @@ import PageNotFound from '../pages/error/page-not-found.tsx';
 
 const authorizationStatus = getAuthorizationStatus();
 
-const route = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: AppRoute.Root,
     element: (
@@ -51,8 +51,8 @@ const route = createBrowserRouter([
   },
 ]);
 
-function Route() {
-  return <RouterProvider router={route}/>;
+function App() {
+  return <RouterProvider router={router}/>;
 }
 
-export default Route;
+export default App;

@@ -33,6 +33,17 @@ export const Classes = {
   }
 } as const;
 
+export const BookmarkButtonClasses = {
+  card: {
+    button: 'place-card__bookmark-button',
+    buttonActive: 'place-card__bookmark-button--active'
+  },
+  offer: {
+    button: 'offer__bookmark-button',
+    buttonActive: 'offer__bookmark-button--active'
+  }
+} as const;
+
 export const AppRoute = {
   Root: '/',
   Login: '/login',
@@ -49,3 +60,11 @@ export const AuthorizationStatus = {
 } as const;
 
 export type AuthorizationStatusType = (typeof AuthorizationStatus)[keyof typeof AuthorizationStatus];
+
+export const Rating = [
+  {value: 5, label: 'perfect'},
+  {value: 4, label: 'good'},
+  {value: 3, label: 'not bad'},
+  {value: 2, label: 'badly'},
+  {value: 1, label: 'terribly'}
+] as const;
