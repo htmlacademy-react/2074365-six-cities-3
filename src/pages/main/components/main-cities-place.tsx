@@ -1,13 +1,13 @@
-import {JSX, useState} from 'react';
+import {JSX} from 'react';
 import Card from '@/components/card.tsx';
 import {offersMock} from '@/mock/offers-mock.tsx';
 import {Nullable} from 'vitest';
 
+type MainCitiesPlaceProps = {
+  setActiveOffer: (id: Nullable<string>) => void;
+}
 
-function MainCitiesPlace(): JSX.Element {
-
-  const [, setActiveOffer] = useState<Nullable<string>>(null);
-
+function MainCitiesPlace({setActiveOffer}: MainCitiesPlaceProps): JSX.Element {
   const handleHover = (id?: string) => {
     setActiveOffer(id || null);
   };

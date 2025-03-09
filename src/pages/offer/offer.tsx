@@ -1,4 +1,4 @@
-import {JSX} from 'react';
+import {JSX, useState} from 'react';
 import OfferGallery from './components/offer-gallery.tsx';
 import OfferInsideList from './components/offer-inside-list.tsx';
 import OfferReviews from './components/offer-reviews.tsx';
@@ -14,11 +14,13 @@ import PageNotFound from '../error/page-not-found.tsx';
 import clsx from 'clsx';
 import OfferUserStatus from '@/pages/offer/components/offer-user-status.tsx';
 import BookmarkButton from 'components/bookmark-button.tsx';
+import {Nullable} from 'vitest';
 
 
 function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Element {
   const urlParams = useParams();
   const offer = offerDetailMock.find((item) => item?.id === urlParams?.id) as OfferDetail;
+  const [activeOffer, setActiveOffer] = useState<Nullable<string>>(null);
 
   if (!offer) {
     return <PageNotFound/>;
@@ -87,10 +89,16 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
             <OfferReviews authorizationStatus={authorizationStatus}/>
           </div>
         </div>
-        <LocationMap classType="offer"/>
+        <LocationMap
+          classType="offer"
+          offers={offerDetailMock}
+          activeOfferId={activeOffer}
+        />
       </section>
       <div className="container">
-        <OfferNearPlaces/>
+        <OfferNearPlaces
+          setActiveOffer={setActiveOffer}
+        />
       </div>
     </main>
   );
