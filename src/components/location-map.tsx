@@ -1,5 +1,5 @@
 import {JSX, useEffect, useRef} from 'react';
-import {ActiveMarkerIcon, Classes, DefaultMarkerIcon, EmptyLocation} from '../constants/constants.tsx';
+import {ActiveMarkerIcon, Classes, DefaultMarkerIcon} from '../constants/constants.tsx';
 import {OfferListItem} from '@/types/offer.tsx';
 import leaflet, {layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -17,7 +17,7 @@ function LocationMap({classType, offers, activeOfferId}: LocationMapProps): JSX.
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
-  const city = offers[0]?.city || {city: EmptyLocation};
+  const city = offers[0]?.city;
 
   const map = useMap({location: city.location, containerRef: mapContainerRef});
 

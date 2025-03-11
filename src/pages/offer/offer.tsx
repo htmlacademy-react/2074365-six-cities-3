@@ -90,6 +90,7 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
         <LocationMap
           classType="offer"
           offers={offerDetailMock}
+          activeOfferId={offer.id}
         />
       </section>
       <div className="container">
