@@ -7,7 +7,7 @@ import {offersMock} from '@/mock/offers-mock.tsx';
 import {Nullable} from 'vitest';
 
 function Main(): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<Nullable<string>>(null);
+  const [activeOfferId, setActiveOfferId] = useState<Nullable<string>>(null);
 
   return (
     <main className="page__main page__main--index">
@@ -24,14 +24,14 @@ function Main(): JSX.Element {
             <b className="places__found">312 places to stay in Amsterdam</b>
             <MainPlacesSorting/>
             <MainCitiesPlace
-              setActiveOffer={setActiveOffer}
+              onCardActionId={setActiveOfferId}
             />
           </section>
           <div className="cities__right-section">
             <LocationMap
               classType='city'
               offers={offersMock}
-              activeOfferId={activeOffer}
+              activeOfferId={activeOfferId}
             />
           </div>
         </div>

@@ -18,7 +18,7 @@ function useMap({location, containerRef}: UseMapProps): Map | null {
 
   useEffect(() => {
     if (containerRef.current !== null && !isRenderedRef.current) {
-      const inst = leaflet.map(containerRef.current, {
+      const instance = leaflet.map(containerRef.current, {
         center: {
           lat: location.latitude,
           lng: location.longitude,
@@ -30,9 +30,9 @@ function useMap({location, containerRef}: UseMapProps): Map | null {
         .tileLayer(TitleLayer.TILE_LAYER_URL_PATTERN, {
           attribution: TitleLayer.TILE_LAYER_ATTRIBUTION
         })
-        .addTo(inst);
+        .addTo(instance);
 
-      setMap(inst);
+      setMap(instance);
       isRenderedRef.current = true;
     }
   }, [containerRef, location]);
