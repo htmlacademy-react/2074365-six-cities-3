@@ -1,10 +1,13 @@
-import {JSX} from 'react';
+import {JSX, useState} from 'react';
 import MainLocationsList from './components/main-locations-list.tsx';
 import MainCitiesPlace from './components/main-cities-place.tsx';
 import MainPlacesSorting from './components/main-places-sorting.tsx';
 import LocationMap from '@/components/location-map.tsx';
+import {offersMock} from '@/mock/offers-mock.tsx';
+import {Nullable} from 'vitest';
 
 function Main(): JSX.Element {
+  const [activeOfferId, setActiveOfferId] = useState<Nullable<string>>(null);
 
   return (
     <main className="page__main page__main--index">
@@ -20,10 +23,16 @@ function Main(): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">312 places to stay in Amsterdam</b>
             <MainPlacesSorting/>
-            <MainCitiesPlace/>
+            <MainCitiesPlace
+              onCardActionId={setActiveOfferId}
+            />
           </section>
           <div className="cities__right-section">
-            <LocationMap classType='city'/>
+            <LocationMap
+              classType='city'
+              offers={offersMock}
+              activeOfferId={activeOfferId}
+            />
           </div>
         </div>
       </div>

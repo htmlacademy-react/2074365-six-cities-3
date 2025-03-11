@@ -87,7 +87,10 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
             <OfferReviews authorizationStatus={authorizationStatus}/>
           </div>
         </div>
-        <LocationMap classType="offer"/>
+        <LocationMap
+          classType="offer"
+          offers={offerDetailMock}
+        />
       </section>
       <div className="container">
         <OfferNearPlaces/>

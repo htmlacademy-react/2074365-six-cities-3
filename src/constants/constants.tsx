@@ -1,3 +1,6 @@
+import {City} from '@/types/offer.tsx';
+import leaflet from 'leaflet';
+
 export const Cities = {
   Paris: 'Paris',
   Cologne: 'Cologne',
@@ -68,3 +71,35 @@ export const Rating = [
   {value: 2, label: 'badly'},
   {value: 1, label: 'terribly'}
 ] as const;
+
+export const EmptyLocation: City = {
+  name: '',
+  location: {
+    latitude: 0,
+    longitude: 0,
+    zoom: 0
+  }
+} as const;
+
+export const UrlMarker = {
+  URL_MARKER_DEFAULT: '/img/pin.svg',
+  URL_MARKER_ACTIVE: '/img/pin-active.svg'
+} as const;
+
+export const DefaultMarkerIcon = leaflet.icon({
+  iconUrl: UrlMarker.URL_MARKER_DEFAULT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+export const ActiveMarkerIcon = leaflet.icon({
+  iconUrl: UrlMarker.URL_MARKER_ACTIVE,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+export const TitleLayer = {
+  TILE_LAYER_URL_PATTERN: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  TILE_LAYER_ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">' +
+    'OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+} as const;
