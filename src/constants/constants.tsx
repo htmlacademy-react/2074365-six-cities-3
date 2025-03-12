@@ -1,4 +1,3 @@
-import {City} from '@/types/offer.tsx';
 import leaflet from 'leaflet';
 
 export const Cities = {
@@ -72,15 +71,6 @@ export const Rating = [
   {value: 1, label: 'terribly'}
 ] as const;
 
-export const EmptyLocation: City = {
-  name: '',
-  location: {
-    latitude: 0,
-    longitude: 0,
-    zoom: 0
-  }
-} as const;
-
 export const UrlMarker = {
   URL_MARKER_DEFAULT: '/img/pin.svg',
   URL_MARKER_ACTIVE: '/img/pin-active.svg'
@@ -88,13 +78,13 @@ export const UrlMarker = {
 
 export const DefaultMarkerIcon = leaflet.icon({
   iconUrl: UrlMarker.URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
+  iconSize: [27, 39],
   iconAnchor: [20, 40],
 });
 
 export const ActiveMarkerIcon = leaflet.icon({
   iconUrl: UrlMarker.URL_MARKER_ACTIVE,
-  iconSize: [40, 40],
+  iconSize: [27, 39],
   iconAnchor: [20, 40],
 });
 

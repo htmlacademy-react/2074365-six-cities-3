@@ -155,5 +155,57 @@ export const offerDetailMock = [
     'rating': 1.1,
     'bedrooms': 2,
     'maxAdults': 1
+  },
+  {
+    'id': '42ab6f4a-24d2-4d18-bb4e-342781a0c52c',
+    'title': 'The Pondhouse - A Magical Place',
+    'description': 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. ' +
+      'Ideal for families or friends.',
+    'type': 'apartment',
+    'price': 138,
+    'images': [
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/8.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/9.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/6.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg'
+    ],
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.834610000000005,
+      'longitude': 2.335499,
+      'zoom': 16
+    },
+    'goods': [
+      'Washing machine',
+      'Breakfast',
+      'Air conditioning',
+      'Wi-Fi',
+      'Kitchen',
+      'Towels',
+      'Laptop friendly workspace',
+      'Washer',
+      'Fridge',
+      'Coffee machine',
+      'Baby seat'
+    ],
+    'host': {
+      'isPro': true,
+      'name': 'Angelina',
+      'avatarUrl': 'https://15.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
+    },
+    'isPremium': true,
+    'isFavorite': false,
+    'rating': 1.1,
+    'bedrooms': 2,
+    'maxAdults': 1
   }
 ];
