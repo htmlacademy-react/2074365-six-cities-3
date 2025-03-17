@@ -7,11 +7,10 @@ function MainLocationsList(): JSX.Element {
 
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((city, index) => (
+      {cities.map((city) => (
         <MainLocationsItem
-          isActive={index === 3}
           city={city}
-          key={city}
+          key={city.name}
         />
       ))}
     </ul>

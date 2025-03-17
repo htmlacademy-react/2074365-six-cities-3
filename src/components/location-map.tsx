@@ -13,12 +13,10 @@ type LocationMapProps = {
 }
 
 function LocationMap({classType, offers, activeOfferId}: LocationMapProps): JSX.Element {
+
   const offerClasses = Classes[classType];
-
   const mapContainerRef = useRef<HTMLDivElement>(null);
-
   const city = offers[0]?.city;
-
   const map = useMap({location: city.location, containerRef: mapContainerRef});
 
   useEffect(() => {

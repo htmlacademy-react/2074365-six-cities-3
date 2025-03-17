@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import leaflet, {Map} from 'leaflet';
 import {TitleLayer} from '@/constants/constants.tsx';
 
@@ -14,28 +14,29 @@ type UseMapProps = {
 
 function useMap({location, containerRef}: UseMapProps): Map | null {
   const [map, setMap] = useState<Map | null>(null);
-  const isRenderedRef = useRef(false);
 
   useEffect(() => {
-    if (containerRef.current !== null && !isRenderedRef.current) {
+    if (!containerRef.current) {
+      return;
+    }
+
+    if (!map) {
       const instance = leaflet.map(containerRef.current, {
-        center: {
-          lat: location.latitude,
-          lng: location.longitude,
-        },
-        zoom: location.zoom
+        center: [location.latitude, location.longitude],
+        zoom: location.zoom,
       });
 
       leaflet
         .tileLayer(TitleLayer.TILE_LAYER_URL_PATTERN, {
-          attribution: TitleLayer.TILE_LAYER_ATTRIBUTION
+          attribution: TitleLayer.TILE_LAYER_ATTRIBUTION,
         })
         .addTo(instance);
 
       setMap(instance);
-      isRenderedRef.current = true;
+    } else {
+      map.setView([location.latitude, location.longitude], location.zoom);
     }
-  }, [containerRef, location]);
+  }, [containerRef, location, map]);
 
   return map;
 }

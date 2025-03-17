@@ -1,22 +1,23 @@
 import {JSX} from 'react';
 import Card from '@/components/card.tsx';
-import {offersMock} from '@/mock/offers-mock.tsx';
 import {Nullable} from 'vitest';
+import {OfferListItem} from '@/types/offer.tsx';
 
 type MainCitiesPlaceProps = {
-  onCardActionId: (id: Nullable<string>) => void;
+  offers: OfferListItem[];
+  onOfferActionId: (id: Nullable<string>) => void;
 }
 
-function MainCitiesPlace({onCardActionId}: MainCitiesPlaceProps): JSX.Element {
+function MainCitiesPlace({offers, onOfferActionId}: MainCitiesPlaceProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offersMock.map((value) => (
+      {offers.map((value) => (
         <Card
           offer={value}
           classType='city'
           sizeImage={{width: 260, height: 200}}
-          onCardHover={onCardActionId}
+          onCardHover={onOfferActionId}
           key={value.id}
         />
       ))}

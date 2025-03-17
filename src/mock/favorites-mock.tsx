@@ -1,6 +1,6 @@
 export const favoritesMock = [
   {
-    'id': '229f3905-b3bc-4026-bdcc-7fafd5c27b29',
+    'id': '1025f266-bec0-4027-b0bd-a7d9c6e26917',
     'title': 'Wood and stone place',
     'type': 'hotel',
     'price': 200,
@@ -23,7 +23,7 @@ export const favoritesMock = [
     'rating': 1.9
   },
   {
-    'id': 'aae87ff8-919a-4fdf-b247-de964a322ebd',
+    'id': '20242223-e73e-4e91-8612-b0c05f2667a1',
     'title': 'Nice, cozy, warm big bed apartment',
     'type': 'hotel',
     'price': 225,
@@ -46,7 +46,7 @@ export const favoritesMock = [
     'rating': 4.7
   },
   {
-    'id': 'b0e32b83-6a57-4236-9c27-f3a941a2ec44',
+    'id': '4b67fcce-c75a-467a-9774-ae25c141156d',
     'title': 'Tile House',
     'type': 'apartment',
     'price': 384,
