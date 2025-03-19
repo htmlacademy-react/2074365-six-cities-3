@@ -2,6 +2,8 @@ import {JSX} from 'react';
 import Card from '@/components/card.tsx';
 import {OfferListItem} from '@/types/offer.tsx';
 
+const MIN_OFFERS_TO_SHOW = 0;
+const MAX_OFFERS_TO_SHOW = 3;
 
 function OfferNearPlaces({offers}: { offers: OfferListItem[] }): JSX.Element {
 
@@ -9,7 +11,7 @@ function OfferNearPlaces({offers}: { offers: OfferListItem[] }): JSX.Element {
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-        {offers.slice(0, 3).map((value) => (
+        {offers.slice(MIN_OFFERS_TO_SHOW, MAX_OFFERS_TO_SHOW).map((value) => (
           <Card
             offer={value}
             classType='offer'

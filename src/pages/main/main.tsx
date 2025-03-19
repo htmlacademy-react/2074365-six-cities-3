@@ -22,7 +22,7 @@ function Main(): JSX.Element {
       </div>
       <div className="cities">
         {isEmpty
-          ? <MainEmptyCities/>
+          ? <MainEmptyCities cityName={currentCity.name}/>
           : <MainCities currentCity={currentCity} currentOffers={currentOffers}/>}
       </div>
     </main>

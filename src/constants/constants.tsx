@@ -1,11 +1,11 @@
 import leaflet from 'leaflet';
 
 export const SortType = {
-  POPULAR: 'Popular',
-  PRICE_UP: 'Price: low to high',
-  PRICE_DOWN: 'Price: high to low',
-  RATING: 'Top rated first'
-};
+  Popular: 'Popular',
+  PriceAscending: 'Price: low to high',
+  PriceDescending: 'Price: high to low',
+  Rating: 'Top rated first'
+} as const;
 
 export const Classes = {
   city: {

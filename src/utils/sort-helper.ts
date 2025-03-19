@@ -4,15 +4,15 @@ import {SortType} from '@/constants/constants.tsx';
 export const getSortedOffers = ((data: OfferListItem[], sortingType: string) => {
   const sortedData = [...data];
   switch (sortingType) {
-    case SortType.PRICE_UP:
+    case SortType.PriceAscending:
       return sortedData.sort((first, second) => first.price - second.price);
-    case SortType.PRICE_DOWN:
+    case SortType.PriceDescending:
       return sortedData.sort((first, second) => second.price - first.price);
-    case SortType.RATING:
+    case SortType.Rating:
       return sortedData.sort((first, second) => second.rating - first.rating);
-
-    case SortType.POPULAR:
+    case SortType.Popular:
+      return sortedData;
     default:
-      return (data);
+      throw new Error(`Unknown sorting type: ${sortingType}`);
   }
 });

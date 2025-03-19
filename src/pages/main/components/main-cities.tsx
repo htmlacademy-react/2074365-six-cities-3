@@ -39,7 +39,7 @@ function MainCities({currentCity, currentOffers}: MainCitiesPlacesProps): JSX.El
       </section>
       <div className="cities__right-section">
         <LocationMap
-          classType='city'
+          classType="city"
           offers={sortedOffers}
           activeOfferId={activeOfferId}
         />

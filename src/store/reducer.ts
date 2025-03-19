@@ -18,7 +18,7 @@ const initialState: OffersState = {
   city: Cities[0],
   offers: offersMock,
   detailOffers: offerDetailMock,
-  sorting: SortType.POPULAR,
+  sorting: SortType.Popular,
   activeOfferId: null
 };
 
