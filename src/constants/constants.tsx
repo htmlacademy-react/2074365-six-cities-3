@@ -70,13 +70,13 @@ export const UrlMarker = {
 export const DefaultMarkerIcon = leaflet.icon({
   iconUrl: UrlMarker.URL_MARKER_DEFAULT,
   iconSize: [27, 39],
-  iconAnchor: [20, 40],
+  iconAnchor: [14, 40],
 });
 
 export const ActiveMarkerIcon = leaflet.icon({
   iconUrl: UrlMarker.URL_MARKER_ACTIVE,
   iconSize: [27, 39],
-  iconAnchor: [20, 40],
+  iconAnchor: [14, 40],
 });
 
 export const TitleLayer = {
