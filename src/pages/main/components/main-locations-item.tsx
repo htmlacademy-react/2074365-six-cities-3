@@ -1,19 +1,26 @@
 import {JSX} from 'react';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '@/constants/constants.tsx';
+import {City} from '@/types/offer.tsx';
+import {useAppDispatch, useAppSelector} from '@/hooks';
+import {setCity} from '@/store/action.ts';
+import clsx from 'clsx';
 
+function MainLocationsItem({city}: { city: City }): JSX.Element {
 
-type LocationsItemProps = {
-  isActive: boolean;
-  city: string;
-}
-
-function MainLocationsItem({isActive, city}: LocationsItemProps): JSX.Element {
+  const currentCity = useAppSelector((state) => state.city);
+  const dispatch = useAppDispatch();
 
   return (
     <li className="locations__item">
-      <Link className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} to={AppRoute.Root}>
-        <span>{city}</span>
+      <Link
+        className={clsx('locations__item-link', 'tabs__item', {'tabs__item--active': currentCity === city})}
+        to='#'
+        onClick={(evt) => {
+          evt.preventDefault();
+          dispatch(setCity(city));
+        }}
+      >
+        <span>{city.name}</span>
       </Link>
     </li>
   );

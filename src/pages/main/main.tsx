@@ -1,13 +1,16 @@
-import {JSX, useState} from 'react';
+import {JSX} from 'react';
 import MainLocationsList from './components/main-locations-list.tsx';
-import MainCitiesPlace from './components/main-cities-place.tsx';
-import MainPlacesSorting from './components/main-places-sorting.tsx';
-import LocationMap from '@/components/location-map.tsx';
-import {offersMock} from '@/mock/offers-mock.tsx';
-import {Nullable} from 'vitest';
+import {useAppSelector} from '@/hooks';
+import MainEmptyCities from '@/pages/main/components/main-empty-cities.tsx';
+import MainCities from '@/pages/main/components/main-cities.tsx';
+
 
 function Main(): JSX.Element {
-  const [activeOfferId, setActiveOfferId] = useState<Nullable<string>>(null);
+
+  const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  const isEmpty = currentOffers.length === 0;
 
   return (
     <main className="page__main page__main--index">
@@ -18,23 +21,9 @@ function Main(): JSX.Element {
         </section>
       </div>
       <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">312 places to stay in Amsterdam</b>
-            <MainPlacesSorting/>
-            <MainCitiesPlace
-              onCardActionId={setActiveOfferId}
-            />
-          </section>
-          <div className="cities__right-section">
-            <LocationMap
-              classType='city'
-              offers={offersMock}
-              activeOfferId={activeOfferId}
-            />
-          </div>
-        </div>
+        {isEmpty
+          ? <MainEmptyCities cityName={currentCity.name}/>
+          : <MainCities currentCity={currentCity} currentOffers={currentOffers}/>}
       </div>
     </main>
   );

@@ -8,19 +8,37 @@ import OfferNearPlaces from './components/offer-near-places.tsx';
 import LocationMap from '@/components/location-map.tsx';
 import BadgeOfferMark from 'components/badge-offer-mark.tsx';
 import {useParams} from 'react-router-dom';
-import {offerDetailMock} from '@/mock/offer-detail-mock.tsx';
-import {OfferDetail} from '@/types/offer.tsx';
 import PageNotFound from '../error/page-not-found.tsx';
 import clsx from 'clsx';
 import OfferUserStatus from '@/pages/offer/components/offer-user-status.tsx';
 import BookmarkButton from 'components/bookmark-button.tsx';
+import {useAppSelector} from '@/hooks';
+import {OfferDetail} from '@/types/offer.tsx';
 
 
 function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Element {
-  const urlParams = useParams();
-  const offer = offerDetailMock.find((item) => item?.id === urlParams?.id) as OfferDetail;
+  const {id} = useParams<{ id: string }>();
+  const offersDetail = useAppSelector((state) => state.detailOffers);
+  const currentOffer = offersDetail.find((offer) => offer.id === id) as OfferDetail;
 
-  if (!offer) {
+  const offers = useAppSelector((state) => {
+    if (!currentOffer || !state.offers?.length) {
+      return [];
+    }
+
+    const filteredByCity = state.offers.filter(
+      (item) => item.city.name === currentOffer.city.name
+    );
+
+    const exactMatch = filteredByCity.find((item) => item.id === currentOffer.id);
+    const otherMatches = filteredByCity.filter((item) => item.id !== currentOffer.id);
+
+    return exactMatch
+      ? [exactMatch, ...otherMatches.slice(0, 2)]
+      : otherMatches.slice(0, 3);
+  });
+
+  if (!currentOffer) {
     return <PageNotFound/>;
   }
 
@@ -32,13 +50,13 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
     title,
     isPremium,
     isFavorite
-  } = offer;
+  } = currentOffer;
 
   const {
     isPro,
     name,
     avatarUrl
-  } = offer.host;
+  } = currentOffer.host;
 
   const ratingInPercent = (rating / 5) * 100;
 
@@ -89,12 +107,14 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
         </div>
         <LocationMap
           classType="offer"
-          offers={offerDetailMock}
-          activeOfferId={offer.id}
+          offers={offers}
+          activeOfferId={currentOffer.id}
         />
       </section>
       <div className="container">
-        <OfferNearPlaces/>
+        <OfferNearPlaces
+          offers={offers}
+        />
       </div>
     </main>
   );

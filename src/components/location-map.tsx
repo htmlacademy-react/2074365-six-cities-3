@@ -13,13 +13,17 @@ type LocationMapProps = {
 }
 
 function LocationMap({classType, offers, activeOfferId}: LocationMapProps): JSX.Element {
+
   const offerClasses = Classes[classType];
-
   const mapContainerRef = useRef<HTMLDivElement>(null);
+  const {location} = offers[0].city;
+  const map = useMap({location: location, containerRef: mapContainerRef});
 
-  const city = offers[0]?.city;
-
-  const map = useMap({location: city.location, containerRef: mapContainerRef});
+  useEffect(() => {
+    if (map) {
+      map.setView([location.latitude, location.longitude], location.zoom);
+    }
+  }, [map, location.latitude, location.longitude, location.zoom]);
 
   useEffect(() => {
     if (map) {
