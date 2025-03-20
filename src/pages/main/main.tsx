@@ -3,6 +3,7 @@ import MainLocationsList from './components/main-locations-list.tsx';
 import {useAppSelector} from '@/hooks';
 import MainEmptyCities from '@/pages/main/components/main-empty-cities.tsx';
 import MainCities from '@/pages/main/components/main-cities.tsx';
+import {Helmet} from 'react-helmet-async';
 
 
 function Main(): JSX.Element {
@@ -14,6 +15,9 @@ function Main(): JSX.Element {
 
   return (
     <main className="page__main page__main--index">
+      <Helmet>
+        <title>{currentCity.name}</title>
+      </Helmet>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">

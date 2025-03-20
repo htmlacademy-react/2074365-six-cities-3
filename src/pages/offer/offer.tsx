@@ -14,6 +14,7 @@ import OfferUserStatus from '@/pages/offer/components/offer-user-status.tsx';
 import BookmarkButton from 'components/bookmark-button.tsx';
 import {useAppSelector} from '@/hooks';
 import {OfferDetail} from '@/types/offer.tsx';
+import {Helmet} from 'react-helmet-async';
 
 
 function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Element {
@@ -62,6 +63,9 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
 
   return (
     <main className="page__main page__main--offer">
+      <Helmet>
+        <title>{currentOffer.title}</title>
+      </Helmet>
       <section className="offer">
         <OfferGallery images={images}/>
         <div className="offer__container container">
