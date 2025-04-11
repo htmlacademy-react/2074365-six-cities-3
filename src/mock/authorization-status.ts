@@ -1,4 +1,4 @@
-import {AuthorizationStatus} from '../constants/constants.tsx';
+import {AuthorizationStatus} from '../constants/constants.ts';
 
 function getAuthorizationStatus() {
   return AuthorizationStatus.Auth;

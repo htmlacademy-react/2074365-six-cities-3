@@ -1,14 +1,20 @@
 import ReactDOM from 'react-dom/client';
-import App from './routers/router.tsx';
 import {Provider} from 'react-redux';
 import {store} from './store';
+import React from 'react';
+import {fetchOffersAction} from '@/store/api-actions.ts';
+import App from '@/app.tsx';
+
+store.dispatch(fetchOffersAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <Provider store={store}>
-    <App/>
-  </Provider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <App/>
+    </Provider>
+  </React.StrictMode>
 );

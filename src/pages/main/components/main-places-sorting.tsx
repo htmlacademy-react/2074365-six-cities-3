@@ -1,6 +1,6 @@
 import {JSX, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '@/hooks';
-import {SortType} from '@/constants/constants.tsx';
+import {SortType} from '@/constants/constants.ts';
 import {setSorting} from '@/store/action.ts';
 import {useOnClickOutside} from 'usehooks-ts';
 import clsx from 'clsx';

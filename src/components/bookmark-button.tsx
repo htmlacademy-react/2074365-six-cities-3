@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import clsx from 'clsx';
-import {BookmarkButtonClasses} from '@/constants/constants.tsx';
+import {BookmarkButtonClasses} from '@/constants/constants.ts';
 
 type BookmarkButtonProps = {
   width: string;

@@ -1,4 +1,4 @@
-import {AppRoute, AuthorizationStatus, AuthorizationStatusType} from '../constants/constants.tsx';
+import {AppRoute, AuthorizationStatus, AuthorizationStatusType} from '../constants/constants.ts';
 import {JSX} from 'react';
 import {Navigate} from 'react-router-dom';
 

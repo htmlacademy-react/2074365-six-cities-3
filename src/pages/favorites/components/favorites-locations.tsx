@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '@/constants/constants.tsx';
+import {AppRoute} from '@/constants/constants.ts';
 
 
 function FavoritesLocations({city}: { city: string }): JSX.Element {

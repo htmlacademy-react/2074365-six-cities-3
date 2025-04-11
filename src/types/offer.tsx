@@ -30,6 +30,8 @@ export type OfferListItem = {
   rating: number;
 };
 
+export type Offers = OfferListItem[]
+
 // Тип для деталей предложения
 export type OfferDetail = OfferListItem & {
   description: string;
@@ -39,6 +41,8 @@ export type OfferDetail = OfferListItem & {
   bedrooms: number;
   maxAdults: number;
 };
+
+export type OfferDetails = OfferDetail[]
 
 // Тип для отзыва
 export type OfferReview = {

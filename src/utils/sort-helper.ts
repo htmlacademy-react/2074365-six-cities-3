@@ -1,5 +1,5 @@
 import {OfferListItem} from '@/types/offer.tsx';
-import {SortType} from '@/constants/constants.tsx';
+import {SortType} from '@/constants/constants.ts';
 
 export const getSortedOffers = ((data: OfferListItem[], sortingType: string) => {
   const sortedData = [...data];

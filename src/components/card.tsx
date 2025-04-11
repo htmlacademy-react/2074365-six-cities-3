@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import {OfferListItem} from '../types/offer.tsx';
-import {AppRoute, Classes} from '../constants/constants.tsx';
+import {AppRoute, Classes} from '../constants/constants.ts';
 import BadgeOfferMark from './badge-offer-mark.tsx';
 import {generatePath, Link} from 'react-router-dom';
 import {calculateRatingInPercent} from '@/utils/calculation-helper.ts';

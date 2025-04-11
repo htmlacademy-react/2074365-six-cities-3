@@ -1,5 +1,5 @@
 import {JSX} from 'react';
-import {Classes} from '../constants/constants.tsx';
+import {Classes} from '../constants/constants.ts';
 
 type BadgeProps = {
   text: string;

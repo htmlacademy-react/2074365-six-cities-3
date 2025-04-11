@@ -1,5 +1,5 @@
 import {JSX, useEffect, useRef} from 'react';
-import {ActiveMarkerIcon, Classes, DefaultMarkerIcon} from '../constants/constants.tsx';
+import {ActiveMarkerIcon, Classes, DefaultMarkerIcon} from '../constants/constants.ts';
 import {OfferListItem} from '@/types/offer.tsx';
 import leaflet, {layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';

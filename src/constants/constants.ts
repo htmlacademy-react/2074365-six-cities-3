@@ -1,5 +1,16 @@
 import leaflet from 'leaflet';
 
+export const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
+
+export const ApiEndpoints = {
+  OFFERS: '/offers',
+  OFFER: '/offers/{offerId}',
+  FAVORITE: '/favorite',
+  COMMENTS: '/comments/{offerId}',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
 export const SortType = {
   Popular: 'Popular',
   PriceAscending: 'Price: low to high',

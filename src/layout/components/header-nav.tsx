@@ -1,5 +1,5 @@
 import {JSX} from 'react';
-import {AppRoute, AuthorizationStatus, AuthorizationStatusType} from '@/constants/constants.tsx';
+import {AppRoute, AuthorizationStatus, AuthorizationStatusType} from '@/constants/constants.ts';
 import {Link} from 'react-router-dom';
 
 function HeaderNav({authorizationStatus}: { authorizationStatus: AuthorizationStatusType }): JSX.Element {
