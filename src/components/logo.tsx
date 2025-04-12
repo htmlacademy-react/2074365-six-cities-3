@@ -1,11 +1,11 @@
 import {JSX} from 'react';
 import {Link} from 'react-router-dom';
-import {AppRouteType} from '@/constants/constants.ts';
+import {AppRoute} from '@/constants/constants.ts';
 import clsx from 'clsx';
 
 type LogoProps = {
   logo: string;
-  route: AppRouteType;
+  route: AppRoute;
   width: string;
   height: string;
   isActive: boolean;

@@ -1,22 +1,25 @@
 import {JSX} from 'react';
 import FavoritesItems from './favorites-items.tsx';
-import {favoritesMock} from '@/mock/favorites-mock.tsx';
+import {useAppSelector} from '@/hooks';
+import {filterFavoriteOffers} from '@/store/selectrors.ts';
 
 function FavoritesList(): JSX.Element {
-  const favorites = favoritesMock;
-  const citiesName = new Set(
-    favorites.map((item) => item?.city?.name).filter((name) => name));
+  const favorites = useAppSelector(filterFavoriteOffers);
 
   return (
-    <ul className="favorites__list">
-      {Array.from(citiesName).map((cityName) => (
-        <FavoritesItems
-          city={cityName}
-          offers={favorites}
-          key={cityName}
-        />
-      ))}
-    </ul>
+    <section className="favorites">
+      <h1 className="favorites__title">Saved listing</h1>
+      <ul className="favorites__list">
+        {favorites.map((favoriteItem) => (
+          favoriteItem.offers.length) ? (
+            <FavoritesItems
+              city={favoriteItem.city}
+              offers={favoriteItem.offers}
+              key={favoriteItem.city}
+            />
+          ) : null)}
+      </ul>
+    </section>
   );
 }
 

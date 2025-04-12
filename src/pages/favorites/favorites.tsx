@@ -1,8 +1,20 @@
 import {JSX} from 'react';
 import FavoritesList from './components/favorites-list.tsx';
 import {Helmet} from 'react-helmet-async';
+import {useAppSelector} from '@/hooks';
+import LoadingScreen from '@/pages/loading-screen/loading-screen.tsx';
+import FavoritesEmpty from '@/pages/favorites/components/favorites-empty.tsx';
 
 function Favorites(): JSX.Element {
+
+  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const isEmpty = useAppSelector((state) => state.countFavorites === 0);
+
+  if (isDataLoading) {
+    return (
+      <LoadingScreen/>
+    );
+  }
 
   return (
     <main className="page__main page__main--favorites">
@@ -10,10 +22,9 @@ function Favorites(): JSX.Element {
         <title>Favorites</title>
       </Helmet>
       <div className="page__favorites-container container">
-        <section className="favorites">
-          <h1 className="favorites__title">Saved listing</h1>
-          <FavoritesList/>
-        </section>
+        {isEmpty
+          ? <FavoritesEmpty/>
+          : <FavoritesList/>}
       </div>
     </main>
   );

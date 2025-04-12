@@ -1,11 +1,11 @@
 import {JSX} from 'react';
 import FavoritesLocations from './favorites-locations.tsx';
 import Card from '@/components/card.tsx';
-import {OfferListItem} from '@/types/offer.tsx';
+import {Offer} from '@/types/offer.tsx';
 
 type FavoritesItemsProps = {
   city: string;
-  offers: OfferListItem[];
+  offers: Offer[];
 }
 
 function FavoritesItems({city, offers}: FavoritesItemsProps): JSX.Element {

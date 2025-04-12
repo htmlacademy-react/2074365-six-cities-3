@@ -17,7 +17,7 @@ type User = {
 };
 
 // Тип для элемента списка предложений
-export type OfferListItem = {
+export type Offer = {
   id: string;
   title: string;
   type: string;
@@ -28,12 +28,6 @@ export type OfferListItem = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-};
-
-export type Offers = OfferListItem[]
-
-// Тип для деталей предложения
-export type OfferDetail = OfferListItem & {
   description: string;
   images: string[];
   goods: string[];
@@ -42,13 +36,15 @@ export type OfferDetail = OfferListItem & {
   maxAdults: number;
 };
 
-export type OfferDetails = OfferDetail[]
+export type Offers = Offer[]
 
 // Тип для отзыва
-export type OfferReview = {
+export type Comment = {
   id: string;
   comment: string;
   date: string;
   rating: number;
   user: User;
 };
+
+export type Comments = Comment[]

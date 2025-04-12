@@ -1,13 +1,13 @@
 import {JSX} from 'react';
 import OfferReviewsItem from './offer-reviews-item.tsx';
-import {commentsMock} from '@/mock/comments-mock.tsx';
+import {Comments} from '@/types/offer.tsx';
 
 
-function OfferReviewsList(): JSX.Element {
+function OfferReviewsList({comments}: { comments: Comments }): JSX.Element {
 
   return (
     <ul className="reviews__list">
-      {commentsMock.map((item) => (
+      {comments.map((item) => (
         <OfferReviewsItem
           review={item}
           key={item.id}

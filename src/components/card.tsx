@@ -1,5 +1,5 @@
 import {JSX} from 'react';
-import {OfferListItem} from '../types/offer.tsx';
+import {Offer} from '../types/offer.tsx';
 import {AppRoute, Classes} from '../constants/constants.ts';
 import BadgeOfferMark from './badge-offer-mark.tsx';
 import {generatePath, Link} from 'react-router-dom';
@@ -8,7 +8,7 @@ import {capitalizeWord} from '@/utils/string-helper.ts';
 import BookmarkButton from 'components/bookmark-button.tsx';
 
 type CitiesCardProp = {
-  offer: OfferListItem;
+  offer: Offer;
   classType: 'city' | 'favorite' | 'offer';
   sizeImage: { width: number; height: number };
   onCardHover?: (id?: string) => void;

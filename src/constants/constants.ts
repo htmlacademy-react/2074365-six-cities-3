@@ -2,11 +2,16 @@ import leaflet from 'leaflet';
 
 export const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
 
+export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+
+export const TIMEOUT_SHOW_ERROR = 5000;
+
 export const ApiEndpoints = {
   OFFERS: '/offers',
-  OFFER: '/offers/{offerId}',
+  OFFER: '/offers/:offerId',
+  NEARBY: '/offers/:offerId/nearby',
   FAVORITE: '/favorite',
-  COMMENTS: '/comments/{offerId}',
+  COMMENTS: '/comments/:offerId',
   LOGIN: '/login',
   LOGOUT: '/logout',
 };
@@ -48,29 +53,25 @@ export const BookmarkButtonClasses = {
   }
 } as const;
 
-export const AppRoute = {
-  Root: '/',
-  Login: '/login',
-  Favorites: '/favorites',
-  Offer: '/offer/:id',
-} as const;
+export enum AppRoute {
+  Root = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer/:id',
+}
 
-export type AppRouteType = (typeof AppRoute)[keyof typeof AppRoute];
-
-export const AuthorizationStatus = {
-  Auth: 'AUTH',
-  NoAuth: 'NO_AUTH',
-  Unknown: 'UNKNOWN',
-} as const;
-
-export type AuthorizationStatusType = (typeof AuthorizationStatus)[keyof typeof AuthorizationStatus];
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 
 export const Rating = [
-  {value: 5, label: 'perfect'},
-  {value: 4, label: 'good'},
-  {value: 3, label: 'not bad'},
-  {value: 2, label: 'badly'},
-  {value: 1, label: 'terribly'}
+  {rating: 5, title: 'perfect'},
+  {rating: 4, title: 'good'},
+  {rating: 3, title: 'not bad'},
+  {rating: 2, title: 'badly'},
+  {rating: 1, title: 'terribly'}
 ] as const;
 
 export const UrlMarker = {
@@ -146,3 +147,8 @@ export const Cities = [
     }
   },
 ];
+
+export const initReview = {
+  rating: 0,
+  comment: ''
+};
