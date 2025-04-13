@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '@/constants/constants.tsx';
+import {AppRoute} from '@/constants/constants.ts';
 import style from './page-not-found.module.css';
 import {Helmet} from 'react-helmet-async';
 

@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import {Link} from 'react-router-dom';
-import {AppRouteType} from '@/constants/constants.tsx';
+import {AppRouteType} from '@/constants/constants.ts';
 import clsx from 'clsx';
 
 type LogoProps = {

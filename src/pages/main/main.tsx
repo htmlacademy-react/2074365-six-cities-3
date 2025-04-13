@@ -4,13 +4,16 @@ import {useAppSelector} from '@/hooks';
 import MainEmptyCities from '@/pages/main/components/main-empty-cities.tsx';
 import MainCities from '@/pages/main/components/main-cities.tsx';
 import {Helmet} from 'react-helmet-async';
+import {State} from '@/types/state';
 
+const filterOffers = (state: State) =>
+  state.offers.filter((offer) =>
+    offer.city.name === state.city.name);
 
 function Main(): JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  const currentOffers = useAppSelector(filterOffers);
   const isEmpty = currentOffers.length === 0;
 
   return (

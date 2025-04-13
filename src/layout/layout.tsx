@@ -2,7 +2,7 @@ import {JSX} from 'react';
 import HeaderNav from './components/header-nav.tsx';
 import {Outlet, useLocation} from 'react-router-dom';
 import clsx from 'clsx';
-import {AppRoute, AuthorizationStatusType} from '../constants/constants.tsx';
+import {AppRoute, AuthorizationStatusType} from '../constants/constants.ts';
 import Footer from '../components/footer.tsx';
 import Logo from 'components/logo.tsx';
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import leaflet, {Map} from 'leaflet';
-import {TitleLayer} from '@/constants/constants.tsx';
+import {TitleLayer} from '@/constants/constants.ts';
 
 type UseMapProps = {
   location: {

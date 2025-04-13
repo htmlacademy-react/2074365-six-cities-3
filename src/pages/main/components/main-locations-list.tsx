@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import MainLocationsItem from './main-locations-item.tsx';
-import {Cities} from '@/constants/constants.tsx';
+import {Cities} from '@/constants/constants.ts';
 
 function MainLocationsList(): JSX.Element {
   const cities = [...new Set(Object.values(Cities))];

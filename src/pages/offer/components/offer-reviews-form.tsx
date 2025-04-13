@@ -1,5 +1,5 @@
 import {ChangeEvent, Fragment, JSX, useState} from 'react';
-import {Rating} from '@/constants/constants.tsx';
+import {Rating} from '@/constants/constants.ts';
 
 
 const MIN_REVIEW_LENGTH = 50;

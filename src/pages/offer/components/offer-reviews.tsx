@@ -1,7 +1,7 @@
 import {JSX} from 'react';
 import OfferReviewsForm from './offer-reviews-form.tsx';
 import OfferReviewsList from './offer-reviews-list.tsx';
-import {AuthorizationStatus} from '@/constants/constants.tsx';
+import {AuthorizationStatus} from '@/constants/constants.ts';
 
 
 function OfferReviews({authorizationStatus}: { authorizationStatus: string }): JSX.Element {

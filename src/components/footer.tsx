@@ -1,5 +1,5 @@
 import {JSX} from 'react';
-import {AppRoute} from '../constants/constants.tsx';
+import {AppRoute} from '../constants/constants.ts';
 import Logo from 'components/logo.tsx';
 
 function Footer(): JSX.Element {
