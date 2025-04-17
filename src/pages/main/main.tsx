@@ -1,21 +1,39 @@
-import {JSX} from 'react';
+import {JSX, useEffect} from 'react';
 import MainLocationsList from './components/main-locations-list.tsx';
-import {useAppSelector} from '@/hooks';
+import {useAppDispatch, useAppSelector} from '@/hooks';
 import MainEmptyCities from '@/pages/main/components/main-empty-cities.tsx';
 import MainCities from '@/pages/main/components/main-cities.tsx';
 import {Helmet} from 'react-helmet-async';
 import {State} from '@/types/state';
+import {fetchOffersAction} from '@/store/api-actions.ts';
+import LoadingScreen from '@/pages/loading-screen/loading-screen.tsx';
 
 const filterOffers = (state: State) =>
   state.offers.filter((offer) =>
     offer.city.name === state.city.name);
 
 function Main(): JSX.Element {
+  const dispatch = useAppDispatch();
 
   const currentCity = useAppSelector((state) => state.city);
   const currentOffers = useAppSelector(filterOffers);
-  const isEmpty = currentOffers.length === 0;
+  const isDataLoading = useAppSelector((state) => state.isDataLoading);
 
+  useEffect(() => {
+    if (currentOffers.length !== 0) {
+      return;
+    }
+
+    dispatch(fetchOffersAction());
+  }, [dispatch, currentOffers.length]);
+
+  if (isDataLoading) {
+    return (
+      <LoadingScreen/>
+    );
+  }
+
+  const isEmpty = currentOffers.length === 0;
   return (
     <main className="page__main page__main--index">
       <Helmet>

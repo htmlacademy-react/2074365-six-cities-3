@@ -1,9 +1,9 @@
 import {JSX} from 'react';
 import {format, parseISO} from 'date-fns';
-import {OfferReview} from '@/types/offer.tsx';
+import {Comment} from '@/types/offer.tsx';
 
 
-function OfferReviewsItem({review}: { review: OfferReview }): JSX.Element {
+function OfferReviewsItem({review}: { review: Comment }): JSX.Element {
   const {
     rating,
     comment,

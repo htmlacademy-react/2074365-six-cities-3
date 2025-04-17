@@ -10,13 +10,13 @@ import Favorites from '../../pages/favorites/favorites.tsx';
 import Offer from '../../pages/offer/offer.tsx';
 import PageNotFound from '../../pages/error/page-not-found.tsx';
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: AppRoute.Root,
     element: (
       <HelmetProvider>
         <ScrollToTop/>
-        <Layout authorizationStatus={AuthorizationStatus.NoAuth}/>
+        <Layout/>
       </HelmetProvider>
     ),
     children: [
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
       },
       {
         path: AppRoute.Offer,
-        element: <Offer authorizationStatus={AuthorizationStatus.NoAuth}/>,
+        element: <Offer/>,
       },
       {
         path: '*',
@@ -47,3 +47,6 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+export type RouterType = typeof router;
+export {router};

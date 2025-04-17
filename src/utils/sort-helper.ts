@@ -1,7 +1,9 @@
-import {OfferListItem} from '@/types/offer.tsx';
+import dayjs from 'dayjs';
+import {Comments, Offer} from '@/types/offer.tsx';
 import {SortType} from '@/constants/constants.ts';
 
-export const getSortedOffers = ((data: OfferListItem[], sortingType: string) => {
+
+export const getSortedOffers = ((data: Offer[], sortingType: string) => {
   const sortedData = [...data];
   switch (sortingType) {
     case SortType.PriceAscending:
@@ -16,3 +18,6 @@ export const getSortedOffers = ((data: OfferListItem[], sortingType: string) => 
       throw new Error(`Unknown sorting type: ${sortingType}`);
   }
 });
+
+export const sortByDateDescending = (data: Comments): Comments =>
+  data.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));

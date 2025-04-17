@@ -1,11 +1,11 @@
 import {JSX} from 'react';
 import Card from '@/components/card.tsx';
-import {OfferListItem} from '@/types/offer.tsx';
+import {Offers} from '@/types/offer.tsx';
 
 const MIN_OFFERS_TO_SHOW = 0;
 const MAX_OFFERS_TO_SHOW = 3;
 
-function OfferNearPlaces({offers}: { offers: OfferListItem[] }): JSX.Element {
+function OfferNearPlaces({offers}: { offers: Offers }): JSX.Element {
 
   return (
     <section className="near-places places">

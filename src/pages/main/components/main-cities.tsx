@@ -2,7 +2,7 @@ import {JSX} from 'react';
 import MainPlacesSorting from '@/pages/main/components/main-places-sorting.tsx';
 import MainCitiesPlace from '@/pages/main/components/main-cities-place.tsx';
 import LocationMap from 'components/location-map.tsx';
-import {City, OfferListItem} from '@/types/offer.tsx';
+import {City, Offer} from '@/types/offer.tsx';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import {setActiveOfferId} from '@/store/action.ts';
 import {Nullable} from 'vitest';
@@ -11,7 +11,7 @@ import {getSortedOffers} from '@/utils/sort-helper.ts';
 
 type MainCitiesPlacesProps = {
   currentCity: City;
-  currentOffers: OfferListItem[];
+  currentOffers: Offer[];
 }
 
 function MainCities({currentCity, currentOffers}: MainCitiesPlacesProps): JSX.Element {

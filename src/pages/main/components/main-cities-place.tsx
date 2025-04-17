@@ -1,10 +1,10 @@
 import {JSX} from 'react';
 import Card from '@/components/card.tsx';
 import {Nullable} from 'vitest';
-import {OfferListItem} from '@/types/offer.tsx';
+import {Offer} from '@/types/offer.tsx';
 
 type MainCitiesPlaceProps = {
-  offers: OfferListItem[];
+  offers: Offer[];
   onOfferActionId: (id: Nullable<string>) => void;
 }
 

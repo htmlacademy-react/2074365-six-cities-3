@@ -1,43 +1,56 @@
-import {JSX} from 'react';
-import OfferGallery from './components/offer-gallery.tsx';
-import OfferInsideList from './components/offer-inside-list.tsx';
-import OfferReviews from './components/offer-reviews.tsx';
-import OfferFeaturesList from './components/offer-features-list.tsx';
-import OfferDescription from './components/offer-description.tsx';
-import OfferNearPlaces from './components/offer-near-places.tsx';
-import LocationMap from '@/components/location-map.tsx';
-import BadgeOfferMark from 'components/badge-offer-mark.tsx';
+import {JSX, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import PageNotFound from '../error/page-not-found.tsx';
-import clsx from 'clsx';
-import OfferUserStatus from '@/pages/offer/components/offer-user-status.tsx';
-import BookmarkButton from 'components/bookmark-button.tsx';
-import {useAppSelector} from '@/hooks';
-import {OfferDetail} from '@/types/offer.tsx';
+import {useAppDispatch, useAppSelector} from '@/hooks';
 import {Helmet} from 'react-helmet-async';
+import {fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction} from '@/store/api-actions.ts';
+import LoadingScreen from '@/pages/loading-screen/loading-screen.tsx';
+import OfferGallery from '@/pages/offer/components/offer-gallery.tsx';
+import OfferUserStatus from '@/pages/offer/components/offer-user-status.tsx';
+import OfferFeaturesList from '@/pages/offer/components/offer-features-list.tsx';
+import OfferInsideList from '@/pages/offer/components/offer-inside-list.tsx';
+import OfferDescription from '@/pages/offer/components/offer-description.tsx';
+import clsx from 'clsx';
+import BookmarkButton from 'components/bookmark-button.tsx';
+import BadgeOfferMark from 'components/badge-offer-mark.tsx';
+import LocationMap from 'components/location-map.tsx';
+import OfferNearPlaces from '@/pages/offer/components/offer-near-places.tsx';
+import OfferReviewsList from '@/pages/offer/components/offer-reviews-list.tsx';
+import {AuthorizationStatus} from '@/constants/constants.ts';
+import OfferReviewsForm from '@/pages/offer/components/offer-reviews-form.tsx';
 
 
-function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Element {
+function Offer(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const isCommentsLoading = useAppSelector((state) => state.isCommentsLoading);
+  const isNearestLoading = useAppSelector((state) => state.isNearestLoading);
+  const countComments = useAppSelector((state) => state.countComments);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
   const {id} = useParams<{ id: string }>();
-  const offersDetail = useAppSelector((state) => state.detailOffers);
-  const currentOffer = offersDetail.find((offer) => offer.id === id) as OfferDetail;
-
-  const offers = useAppSelector((state) => {
-    if (!currentOffer || !state.offers?.length) {
-      return [];
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id));
+      dispatch(fetchNearbyOffersAction(id));
+      dispatch(fetchCommentsAction(id));
     }
+    setIsInitialLoad(false);
+  }, [dispatch, id]);
 
-    const filteredByCity = state.offers.filter(
-      (item) => item.city.name === currentOffer.city.name
-    );
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const nearestOffers = useAppSelector((state) => state.nearestOffers);
+  const nearestFirstThreeOffers = nearestOffers.slice(0, 3);
+  const dataMap = currentOffer
+    ? [currentOffer, ...nearestFirstThreeOffers]
+    : [...nearestFirstThreeOffers];
 
-    const exactMatch = filteredByCity.find((item) => item.id === currentOffer.id);
-    const otherMatches = filteredByCity.filter((item) => item.id !== currentOffer.id);
+  const comments = useAppSelector((state) => state.comments.slice(0, 10));
 
-    return exactMatch
-      ? [exactMatch, ...otherMatches.slice(0, 2)]
-      : otherMatches.slice(0, 3);
-  });
+  if (isInitialLoad || isDataLoading || isNearestLoading) {
+    return <LoadingScreen/>;
+  }
 
   if (!currentOffer) {
     return <PageNotFound/>;
@@ -64,7 +77,7 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
   return (
     <main className="page__main page__main--offer">
       <Helmet>
-        <title>{currentOffer.title}</title>
+        <title>{title}</title>
       </Helmet>
       <section className="offer">
         <OfferGallery images={images}/>
@@ -99,26 +112,37 @@ function Offer({authorizationStatus}: { authorizationStatus: string }): JSX.Elem
                 <div
                   className={clsx('offer__avatar-wrapper', `${isPro && 'offer__avatar-wrapper--pro'}`, 'user__avatar-wrapper')}
                 >
-                  <img className="offer__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar"/>
+                  <img
+                    className="offer__avatar user__avatar" src={avatarUrl} width="74" height="74"
+                    alt="Host avatar"
+                  />
                 </div>
                 <span className="offer__user-name">{name}</span>
                 {isPro && <OfferUserStatus text="Pro"/>}
               </div>
               <OfferDescription/>
             </div>
-            <OfferReviews authorizationStatus={authorizationStatus}/>
+            {isCommentsLoading
+              ? <LoadingScreen/>
+              : (
+                <section className="offer__reviews reviews">
+                  <h2 className="reviews__title">Reviews &middot;
+                    <span className="reviews__amount">{countComments}</span>
+                  </h2>
+                  <OfferReviewsList comments={comments}/>
+                  {AuthorizationStatus.Auth === authorizationStatus && <OfferReviewsForm/>}
+                </section>
+              )}
           </div>
         </div>
         <LocationMap
           classType="offer"
-          offers={offers}
+          offers={dataMap}
           activeOfferId={currentOffer.id}
         />
       </section>
       <div className="container">
-        <OfferNearPlaces
-          offers={offers}
-        />
+        <OfferNearPlaces offers={nearestFirstThreeOffers}/>
       </div>
     </main>
   );

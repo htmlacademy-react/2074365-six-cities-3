@@ -1,1 +1,1 @@
-export {router} from './router';
+export {router, type RouterType} from './router';
