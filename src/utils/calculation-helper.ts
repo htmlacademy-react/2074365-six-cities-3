@@ -1,6 +1,7 @@
 const MIN_RATING = 0;
 const MAX_RATING = 5;
 
+
 export const calculateRatingInPercent = (rating: number): number => {
   if (isNaN(rating)) {
     throw new Error('Рейтинг должен быть числом.');
@@ -10,5 +11,6 @@ export const calculateRatingInPercent = (rating: number): number => {
     throw new Error('Рейтинг должен быть в диапазоне от 0 до 5.');
   }
 
-  return (rating / MAX_RATING) * 100;
+  const roundedRating = Math.round(rating);
+  return (roundedRating / MAX_RATING) * 100;
 };

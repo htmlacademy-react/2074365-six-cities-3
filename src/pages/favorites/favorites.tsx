@@ -2,7 +2,7 @@ import {JSX} from 'react';
 import FavoritesList from './components/favorites-list.tsx';
 import {Helmet} from 'react-helmet-async';
 import {useAppSelector} from '@/hooks';
-import LoadingScreen from '@/pages/loading-screen/loading-screen.tsx';
+import Spinner from 'components/spinner/spinner.tsx';
 import FavoritesEmpty from '@/pages/favorites/components/favorites-empty.tsx';
 
 function Favorites(): JSX.Element {
@@ -12,7 +12,7 @@ function Favorites(): JSX.Element {
 
   if (isDataLoading) {
     return (
-      <LoadingScreen/>
+      <Spinner/>
     );
   }
 

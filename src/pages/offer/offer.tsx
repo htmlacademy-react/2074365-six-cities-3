@@ -4,7 +4,7 @@ import PageNotFound from '../error/page-not-found.tsx';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import {Helmet} from 'react-helmet-async';
 import {fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction} from '@/store/api-actions.ts';
-import LoadingScreen from '@/pages/loading-screen/loading-screen.tsx';
+import Spinner from 'components/spinner/spinner.tsx';
 import OfferGallery from '@/pages/offer/components/offer-gallery.tsx';
 import OfferUserStatus from '@/pages/offer/components/offer-user-status.tsx';
 import OfferFeaturesList from '@/pages/offer/components/offer-features-list.tsx';
@@ -18,7 +18,12 @@ import OfferNearPlaces from '@/pages/offer/components/offer-near-places.tsx';
 import OfferReviewsList from '@/pages/offer/components/offer-reviews-list.tsx';
 import {AuthorizationStatus} from '@/constants/constants.ts';
 import OfferReviewsForm from '@/pages/offer/components/offer-reviews-form.tsx';
+import {calculateRatingInPercent} from '@/utils/calculation-helper.ts';
 
+
+const DEFAULT_START_INDEX = 0;
+const NEAREST_OFFERS_COUNT = 3;
+const MAX_COMMENTS_COUNT = 10;
 
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -41,20 +46,19 @@ function Offer(): JSX.Element {
 
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const nearestOffers = useAppSelector((state) => state.nearestOffers);
-  const nearestFirstThreeOffers = nearestOffers.slice(0, 3);
-  const dataMap = currentOffer
-    ? [currentOffer, ...nearestFirstThreeOffers]
-    : [...nearestFirstThreeOffers];
+  const nearestFirstThreeOffers = nearestOffers.slice(DEFAULT_START_INDEX, NEAREST_OFFERS_COUNT);
 
-  const comments = useAppSelector((state) => state.comments.slice(0, 10));
+  const comments = useAppSelector((state) => state.comments.slice(DEFAULT_START_INDEX, MAX_COMMENTS_COUNT));
 
   if (isInitialLoad || isDataLoading || isNearestLoading) {
-    return <LoadingScreen/>;
+    return <Spinner/>;
   }
 
   if (!currentOffer) {
     return <PageNotFound/>;
   }
+
+  const dataMap = [currentOffer, ...nearestFirstThreeOffers];
 
   const {
     images,
@@ -72,7 +76,7 @@ function Offer(): JSX.Element {
     avatarUrl
   } = currentOffer.host;
 
-  const ratingInPercent = (rating / 5) * 100;
+  const ratingInPercent = calculateRatingInPercent(rating);
 
   return (
     <main className="page__main page__main--offer">
@@ -87,8 +91,8 @@ function Offer(): JSX.Element {
             <div className="offer__name-wrapper">
               <h1 className="offer__name">{title}</h1>
               <BookmarkButton
-                width={'31'}
-                height={'33'}
+                width="31"
+                height="33"
                 isFavorite={isFavorite}
                 classType={'offer'}
               />
@@ -123,7 +127,7 @@ function Offer(): JSX.Element {
               <OfferDescription/>
             </div>
             {isCommentsLoading
-              ? <LoadingScreen/>
+              ? <Spinner/>
               : (
                 <section className="offer__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot;

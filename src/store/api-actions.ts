@@ -14,13 +14,11 @@ import {
   setCountComments,
   setDataLoadingStatus,
   setNearestLoadingStatus,
-  setReviewComment,
   setReviewLoadingStatus,
-  setReviewRating,
   setUser
 } from '@/store/action.ts';
 import {Comment, Comments, Offer, Offers} from '@/types/offer.tsx';
-import {ApiEndpoints, AppRoute, AuthorizationStatus, initReview} from '@/constants/constants.ts';
+import {ApiEndpoints, AppRoute, AuthorizationStatus} from '@/constants/constants.ts';
 import {AuthData, User} from '@/types/user.ts';
 import {dropToken, saveToken} from '@/services/token.ts';
 import {sortByDateDescending} from '@/utils/sort-helper.ts';
@@ -90,8 +88,6 @@ export const addCommentAction = createAsyncThunk<void, AddingCommentPayload, Thu
     dispatch(setReviewLoadingStatus(true));
     const {data} = await api.post<Comment>(generatePath(ApiEndpoints.COMMENTS, {offerId: offerId}), {comment, rating});
     dispatch(addComment(data));
-    dispatch(setReviewComment(initReview.comment));
-    dispatch(setReviewRating(initReview.rating));
     dispatch(setReviewLoadingStatus(false));
   },
 );
@@ -112,7 +108,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, ThunkApiConfig>
 
 export const loginAction = createAsyncThunk<void, AuthData, ThunkApiConfig>(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: {api, router}}) => {
+  async ({email, password}, {dispatch, extra: {api, router}}) => {
     try {
       const {data} = await api.post<User>(ApiEndpoints.LOGIN, {email, password});
       saveToken(data.token);
