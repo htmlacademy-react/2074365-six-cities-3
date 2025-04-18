@@ -24,10 +24,6 @@ export const addComment = createAction<Comment>('data/addComment');
 
 export const setCountComments = createAction<number>('data/setCountComments');
 
-export const setReviewRating = createAction<number>('data/setReviewRating');
-
-export const setReviewComment = createAction<string>('data/setReviewComment');
-
 export const setDataLoadingStatus = createAction<boolean>('data/setDataLoadingStatus');
 
 export const setNearestLoadingStatus = createAction<boolean>('data/setNearestLoadingStatus');

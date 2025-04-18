@@ -1,78 +1,127 @@
-import {ChangeEvent, FormEvent, Fragment, JSX} from 'react';
+import {ChangeEvent, FormEvent, Fragment, JSX, useState} from 'react';
 import {Rating} from '@/constants/constants.ts';
 import {useAppDispatch, useAppSelector} from '@/hooks';
-import {setReviewComment, setReviewRating} from '@/store/action.ts';
 import {addCommentAction} from '@/store/api-actions.ts';
+import {toast} from 'react-toastify';
+import {useParams} from 'react-router-dom';
 
 
 const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 300;
 const DEFAULT_RATING = 0;
+const RATING_FIELD_NAME = 'rating';
+const COMMENT_FIELD_NAME = 'comment';
+const EMPTY = '';
 
 function OfferReviewsForm(): JSX.Element {
+  const {id} = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const reviewState = useAppSelector((state) => state.review);
   const isReviewLoading = useAppSelector((state) => state.isReviewLoading);
 
-  const handleSubmit = () => {
-    if (!currentOffer || !reviewState.rating || !reviewState.comment) {
+  const [reviewState, setReviewState] = useState({
+    rating: DEFAULT_RATING,
+    comment: EMPTY,
+  });
+
+  const handleChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const {name, value} = evt.target;
+
+    if (name === COMMENT_FIELD_NAME && value.length > MAX_REVIEW_LENGTH) {
       return;
     }
-    dispatch(addCommentAction({
-      offerId: currentOffer.id,
-      comment: reviewState.comment,
-      rating: reviewState.rating,
+
+    setReviewState((prev) => ({
+      ...prev,
+      [name]: name === RATING_FIELD_NAME ? Number(value) : value,
     }));
   };
 
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (
+      !id ||
+      reviewState.rating === DEFAULT_RATING ||
+      reviewState.comment.length < MIN_REVIEW_LENGTH
+    ) {
+      return;
+    }
+
+    dispatch(
+      addCommentAction({
+        offerId: id,
+        comment: reviewState.comment,
+        rating: reviewState.rating,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        setReviewState({
+          rating: DEFAULT_RATING,
+          comment: EMPTY,
+        });
+        toast.success('Отзыв успешно отправлен!');
+      })
+      .catch(() => {
+        toast.error('Не удалось отправить отзыв');
+      });
+  };
+
   return (
-    <form className="reviews__form form"
-      onSubmit={(evt: FormEvent<HTMLFormElement>) => {
-        evt.preventDefault();
-        handleSubmit();
-      }}
+    <form
+      className="reviews__form form"
+      onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
-        {Rating.map(({rating, title}) => {
-          const id = `${rating}-stars`;
-          return (
-            <Fragment key={rating}>
-              <input className="form__rating-input visually-hidden" name="rating" value={`${rating}`} id={id}
-                type="radio"
-                disabled={isReviewLoading}
-                checked={reviewState.rating === rating}
-                onChange={() => {
-                  dispatch(setReviewRating(rating));
-                }}
-              />
-              <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
-                <svg className="form__star-image" width="37" height="33">
-                  <use xlinkHref="#icon-star"></use>
-                </svg>
-              </label>
-            </Fragment>
-          );
-        })}
+        {Rating.map(({rating, title}) => (
+          <Fragment key={rating}>
+            <input
+              className="form__rating-input visually-hidden"
+              name="rating"
+              value={`${rating}`}
+              id={`${rating}-stars`}
+              type="radio"
+              disabled={isReviewLoading}
+              checked={reviewState.rating === rating}
+              onChange={handleChange}
+            />
+            <label
+              htmlFor={`${rating}-stars`}
+              className="reviews__rating-label form__rating-label"
+              title={title}
+            >
+              <svg className="form__star-image" width="37" height="33">
+                <use xlinkHref="#icon-star"></use>
+              </svg>
+            </label>
+          </Fragment>
+        ))}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review"
+      <textarea
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewState.comment}
         disabled={isReviewLoading}
-        onChange={({target}: ChangeEvent<HTMLTextAreaElement>) => {
-          dispatch(setReviewComment(target.value.slice(DEFAULT_RATING, MAX_REVIEW_LENGTH)));
-          target.textContent = reviewState.comment;
-        }}
+        onChange={handleChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">{MIN_REVIEW_LENGTH} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit"
-          disabled={reviewState.rating === DEFAULT_RATING || reviewState.comment.length < MIN_REVIEW_LENGTH || isReviewLoading}
+        <button
+          className="reviews__submit form__submit button" type="submit"
+          disabled=
+            {
+              reviewState.comment.length < MIN_REVIEW_LENGTH
+              || reviewState.comment.length > MAX_REVIEW_LENGTH
+              || reviewState.rating === DEFAULT_RATING
+              || isReviewLoading
+            }
         >
           Submit
         </button>

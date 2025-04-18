@@ -147,8 +147,3 @@ export const Cities = [
     }
   },
 ];
-
-export const initReview = {
-  rating: 0,
-  comment: ''
-};

@@ -6,7 +6,7 @@ import MainCities from '@/pages/main/components/main-cities.tsx';
 import {Helmet} from 'react-helmet-async';
 import {State} from '@/types/state';
 import {fetchOffersAction} from '@/store/api-actions.ts';
-import LoadingScreen from '@/pages/loading-screen/loading-screen.tsx';
+import Spinner from 'components/spinner/spinner.tsx';
 
 const filterOffers = (state: State) =>
   state.offers.filter((offer) =>
@@ -29,7 +29,7 @@ function Main(): JSX.Element {
 
   if (isDataLoading) {
     return (
-      <LoadingScreen/>
+      <Spinner/>
     );
   }
 

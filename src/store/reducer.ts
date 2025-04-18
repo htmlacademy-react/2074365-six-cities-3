@@ -14,9 +14,7 @@ import {
   setDataLoadingStatus,
   setError,
   setNearestLoadingStatus,
-  setReviewComment,
   setReviewLoadingStatus,
-  setReviewRating,
   setSorting,
   setUser
 } from './action.ts';
@@ -35,10 +33,6 @@ type OffersState = {
   countFavorites: number;
   comments: Comments;
   countComments: number;
-  review: {
-    rating: number;
-    comment: string;
-  };
   sorting: string;
   activeOfferId: Nullable<string>;
   isDataLoading: boolean;
@@ -59,10 +53,6 @@ const initialState: OffersState = {
   countFavorites: 0,
   comments: [],
   countComments: 0,
-  review: {
-    rating: 0,
-    comment: ''
-  },
   sorting: SortType.Popular,
   activeOfferId: null,
   isDataLoading: false,
@@ -103,12 +93,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCountComments, (state, action) => {
       state.countComments = action.payload;
-    })
-    .addCase(setReviewRating, (state, action) => {
-      state.review.rating = action.payload;
-    })
-    .addCase(setReviewComment, (state, action) => {
-      state.review.comment = action.payload;
     })
     .addCase(addComment, (state, action) => {
       state.comments.splice(0, 0, action.payload);

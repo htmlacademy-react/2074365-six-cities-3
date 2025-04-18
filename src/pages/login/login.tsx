@@ -1,4 +1,4 @@
-import {FormEvent, JSX, useRef} from 'react';
+import {FormEvent, JSX, useRef, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute} from '@/constants/constants.ts';
 import {Helmet} from 'react-helmet-async';
@@ -6,9 +6,12 @@ import {useAppDispatch} from '@/hooks';
 import {loginAction} from '@/store/api-actions.ts';
 import {toast} from 'react-toastify';
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PASSWORD_PATTERN = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{9,15}$/;
 
 function Login(): JSX.Element {
 
+  const [isLoading, setIsLoading] = useState(false);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
@@ -26,22 +29,23 @@ function Login(): JSX.Element {
     const email = loginRef.current.value.trim();
     const password = passwordRef.current.value.trim();
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{9,15}$/;
-
-    if (!emailPattern.test(email)) {
+    if (!EMAIL_PATTERN.test(email)) {
       toast.error('Введите корректный email');
       return;
     }
 
-    if (!passwordPattern.test(password)) {
+    if (!PASSWORD_PATTERN.test(password)) {
       toast.error('Пароль должен содержать 9-15 символов, включая буквы и цифры');
       return;
     }
 
-    dispatch(loginAction({login: email, password}))
+    setIsLoading(true);
+
+    dispatch(loginAction({email, password}))
       .unwrap()
-      .then(() => navigate(AppRoute.Root));
+      .then(() => navigate(AppRoute.Root))
+      .catch(() => toast.error('Ошибка авторизации'))
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -79,7 +83,13 @@ function Login(): JSX.Element {
                 required
               />
             </div>
-            <button className="login__submit form__submit button" type="submit">Sign in</button>
+            <button
+              className="login__submit form__submit button"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Sign in...' : 'Sign in'}
+            </button>
           </form>
         </section>
         <section className="locations locations--login locations--current">
