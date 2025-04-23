@@ -11,6 +11,7 @@ export const ApiEndpoints = {
   OFFER: '/offers/:offerId',
   NEARBY: '/offers/:offerId/nearby',
   FAVORITE: '/favorite',
+  FAVORITE_STATUS: '/favorite/:offerId/:status',
   COMMENTS: '/comments/:offerId',
   LOGIN: '/login',
   LOGOUT: '/logout',
@@ -45,11 +46,13 @@ export const Classes = {
 export const BookmarkButtonClasses = {
   card: {
     button: 'place-card__bookmark-button',
-    buttonActive: 'place-card__bookmark-button--active'
+    buttonActive: 'place-card__bookmark-button--active',
+    buttonFavorite: 'place-card__bookmark-icon'
   },
   offer: {
     button: 'offer__bookmark-button',
-    buttonActive: 'offer__bookmark-button--active'
+    buttonActive: 'offer__bookmark-button--active',
+    buttonFavorite: 'offer__bookmark-icon'
   }
 } as const;
 
@@ -147,3 +150,12 @@ export const Cities = [
     }
   },
 ];
+
+export enum NameSpace {
+  App = 'APP',
+  Main = 'MAIN',
+  Offer = 'OFFER',
+  User = 'USER',
+  Comments = 'COMMENTS',
+  Map = 'MAP',
+}
