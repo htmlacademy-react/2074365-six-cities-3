@@ -1,14 +1,11 @@
 import {JSX, memo, useMemo} from 'react';
 import {Offer} from '../types/offer.tsx';
-import {AppRoute, AuthorizationStatus, Classes} from '../constants/constants.ts';
+import {AppRoute, Classes} from '../constants/constants.ts';
 import BadgeOfferMark from './badge-offer-mark-component.tsx';
-import {generatePath, Link, useNavigate} from 'react-router-dom';
+import {generatePath, Link} from 'react-router-dom';
 import {calculateRatingInPercent} from '@/utils/calculation-helper.ts';
 import {capitalizeWord} from '@/utils/string-helper.ts';
 import BookmarkButton from 'components/bookmark-button-component.tsx';
-import {useAppDispatch, useAppSelector} from '@/hooks';
-import {getAuthorizationStatus} from '@/store/user-process/user-process.selectors.ts';
-import {fetchFavoritesStatusAction} from '@/store/api-actions.ts';
 
 
 type CitiesCardProp = {
@@ -19,19 +16,6 @@ type CitiesCardProp = {
 }
 
 function CardComponent({offer, classType, sizeImage, onCardHover}: CitiesCardProp): JSX.Element {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-
-  const handleClick = () => {
-    if (authorizationStatus !== AuthorizationStatus.Auth) {
-      navigate(AppRoute.Login);
-      return;
-    }
-    dispatch(fetchFavoritesStatusAction({offerId: offer.id, isFavorite: !(offer.isFavorite)}));
-    offer.isFavorite = true;
-  };
-
   const cardClasses = Classes[classType];
 
   const {
@@ -39,7 +23,6 @@ function CardComponent({offer, classType, sizeImage, onCardHover}: CitiesCardPro
     type,
     price,
     previewImage,
-    isFavorite,
     isPremium,
     rating
   } = offer;
@@ -76,9 +59,8 @@ function CardComponent({offer, classType, sizeImage, onCardHover}: CitiesCardPro
           <BookmarkButton
             width={'18'}
             height={'19'}
-            isFavorite={isFavorite}
             classType={'card'}
-            handleClick={handleClick}
+            offerId={offer.id}
           />
         </div>
         <div className="place-card__rating rating">

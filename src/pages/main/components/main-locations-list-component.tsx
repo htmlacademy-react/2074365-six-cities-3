@@ -1,9 +1,9 @@
 import {JSX, memo} from 'react';
 import MainLocationsItem from './main-locations-item-component.tsx';
-import {Cities} from '@/constants/constants.ts';
+import {CITIES} from '@/constants/constants.ts';
 
 function MainLocationsListComponent(): JSX.Element {
-  const cities = [...new Set(Object.values(Cities))];
+  const cities = [...new Set(Object.values(CITIES))];
 
   return (
     <ul className="locations__list tabs__list">

@@ -1,13 +1,10 @@
 import {MainData} from '@/types/state.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Cities, NameSpace, SortType} from '@/constants/constants.ts';
+import {CITIES, NameSpace, SortType} from '@/constants/constants.ts';
 import {fetchFavoritesAction, fetchFavoritesStatusAction, fetchOffersAction} from '@/store/api-actions.ts';
 
-const NOT_FOUND_INDEX = -1;
-const INCREMENT_VALUE = 1;
-
 const initialState: MainData = {
-  city: Cities[0],
+  city: CITIES[0],
   sorting: SortType.Popular,
   offers: [],
   favorites: [],
@@ -54,17 +51,10 @@ export const mainDataSlice = createSlice({
         state.error = 'Ошибка загрузки';
       })
       .addCase(fetchFavoritesStatusAction.fulfilled, (state, action) => {
-        const indexOffers = state.offers.findIndex((offer) => offer.id === action.payload.id);
-        if (indexOffers !== NOT_FOUND_INDEX) {
-          state.offers[indexOffers].isFavorite = action.payload.isFavorite;
-        }
         if (action.payload.isFavorite) {
           state.favorites.push(action.payload);
         } else {
-          const index = state.favorites.findIndex((favorite) => favorite.id === action.payload.id);
-          if (index !== NOT_FOUND_INDEX) {
-            state.favorites.splice(index, INCREMENT_VALUE);
-          }
+          state.favorites = state.favorites.filter((offer) => offer.id !== action.payload.id);
         }
       });
   }

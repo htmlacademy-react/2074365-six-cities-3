@@ -100,7 +100,7 @@ export const TitleLayer = {
     'OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
 } as const;
 
-export const Cities = [
+export const CITIES = [
   {
     name: 'Paris',
     location: {

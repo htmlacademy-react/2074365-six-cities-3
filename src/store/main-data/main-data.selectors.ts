@@ -1,6 +1,6 @@
 import {State} from '@/types/state';
 import {City, Offers} from '@/types/offer.tsx';
-import {Cities, NameSpace} from '@/constants/constants.ts';
+import {CITIES, NameSpace} from '@/constants/constants.ts';
 
 type FavoriteOffersByCity = {
   city: string;
@@ -17,7 +17,7 @@ export const getError = (state: State): string | null => state[NameSpace.Main].e
 
 export const getFilterFavoriteOffers = (state: State): FavoriteOffersByCity => {
   const favorites: FavoriteOffersByCity = [];
-  Cities.map((city) => {
+  CITIES.map((city) => {
     favorites.push(
       {
         city: state[NameSpace.Main].city.name,

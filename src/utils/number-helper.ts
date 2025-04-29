@@ -1,4 +1,4 @@
-import {Cities} from '@/constants/constants.ts';
+import {CITIES} from '@/constants/constants.ts';
 
 export const getRandomCity = () =>
-  (Cities[Math.floor(Math.random() * Cities.length)]);
+  (CITIES[Math.floor(Math.random() * CITIES.length)]);
