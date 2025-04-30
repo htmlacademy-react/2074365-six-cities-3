@@ -1,14 +1,14 @@
 import {createBrowserRouter} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '@/constants/constants.ts';
+import {AppRoute} from '@/constants/constants.ts';
 import {HelmetProvider} from 'react-helmet-async';
 import ScrollToTop from '../../layout/components/scroll-to-top.ts';
 import Layout from '../../layout/layout.tsx';
-import Main from '../../pages/main/main.tsx';
-import Login from '../../pages/login/login.tsx';
+import LoginPage from '../../pages/login/login-page.tsx';
 import PrivateRoute from 'components/private-route.tsx';
-import Favorites from '../../pages/favorites/favorites.tsx';
-import Offer from '../../pages/offer/offer.tsx';
+import FavoritesPage from '../../pages/favorites/favorites-page.tsx';
+import Offer from '../../pages/offer/offer-page.tsx';
 import PageNotFound from '../../pages/error/page-not-found.tsx';
+import MainPage from '../../pages/main/main-page.tsx';
 
 const router = createBrowserRouter([
   {
@@ -22,17 +22,17 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Main/>,
+        element: <MainPage/>,
       },
       {
         path: AppRoute.Login,
-        element: <Login/>,
+        element: <LoginPage/>,
       },
       {
         path: AppRoute.Favorites,
         element: (
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <Favorites/>
+          <PrivateRoute>
+            <FavoritesPage/>
           </PrivateRoute>
         ),
       },

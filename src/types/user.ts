@@ -11,3 +11,9 @@ export type User = {
   avatarUrl: string;
   isPro: boolean;
 }
+
+export enum RequestStatus {
+  Idle = 'idle',
+  Loading = 'loading',
+  Success = 'success',
+}

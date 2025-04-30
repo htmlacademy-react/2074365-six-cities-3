@@ -1,10 +1,10 @@
 import {JSX} from 'react';
-import HeaderNav from './components/header-nav.tsx';
+import HeaderNav from './components/header-nav-component.tsx';
 import {Outlet, useLocation} from 'react-router-dom';
 import clsx from 'clsx';
 import {AppRoute} from '../constants/constants.ts';
-import Footer from '../components/footer.tsx';
-import Logo from 'components/logo.tsx';
+import Footer from 'components/footer-component.tsx';
+import Logo from 'components/logo-component.tsx';
 
 function Layout(): JSX.Element {
   const uri = useLocation();
