@@ -9,7 +9,7 @@ import {getCountFavorites, getDataLoadingStatus} from '@/store/main-data/main-da
 function FavoritesPage(): JSX.Element {
 
   const isDataLoading = useAppSelector(getDataLoadingStatus);
-  const isEmpty = useAppSelector(getCountFavorites) === 0;
+  const favoritesCount = useAppSelector(getCountFavorites);
 
   if (isDataLoading) {
     return (
@@ -23,7 +23,7 @@ function FavoritesPage(): JSX.Element {
         <title>Favorites</title>
       </Helmet>
       <div className="page__favorites-container container">
-        {isEmpty
+        {favoritesCount === 0
           ? <FavoritesEmptyComponent/>
           : <FavoritesList/>}
       </div>

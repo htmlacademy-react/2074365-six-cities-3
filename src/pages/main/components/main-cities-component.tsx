@@ -6,7 +6,6 @@ import {City, Offer} from '@/types/offer.tsx';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import {Nullable} from 'vitest';
 import {getSortedOffers} from '@/utils/sort-helper.ts';
-import {getActiveOfferId} from '@/store/map-process/map-process.selectors.ts';
 import {setActiveOfferId} from '@/store/map-process/map-process.slice.ts';
 import {getSorting} from '@/store/main-data/main-data.selectors.ts';
 
@@ -18,16 +17,12 @@ type MainCitiesPlacesProps = {
 
 function MainCitiesComponent({currentCity, currentOffers}: MainCitiesPlacesProps): JSX.Element {
   const dispatch = useAppDispatch();
-
-  const activeOfferId = useAppSelector(getActiveOfferId);
   const sorting = useAppSelector(getSorting);
   const sortedOffers = useMemo(() => getSortedOffers(currentOffers, sorting), [currentOffers, sorting]);
 
   const handleOfferHover = useCallback((cardId: Nullable<string>): void => {
-    if (cardId && activeOfferId !== cardId) {
-      dispatch(setActiveOfferId(cardId));
-    }
-  }, [activeOfferId, dispatch]);
+    dispatch(setActiveOfferId(cardId ?? null));
+  }, [dispatch]);
 
   return (
     <div className="cities__places-container container">
@@ -44,7 +39,6 @@ function MainCitiesComponent({currentCity, currentOffers}: MainCitiesPlacesProps
         <LocationMap
           classType="city"
           offers={sortedOffers}
-          activeOfferId={activeOfferId}
         />
       </div>
     </div>

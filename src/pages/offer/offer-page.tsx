@@ -151,7 +151,6 @@ function OfferPage(): JSX.Element {
         <LocationMap
           classType="offer"
           offers={dataMap}
-          activeOfferId={currentOffer.id}
         />
       </section>
       <div className="container">

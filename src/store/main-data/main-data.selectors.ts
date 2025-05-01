@@ -1,6 +1,7 @@
 import {State} from '@/types/state';
 import {City, Offers} from '@/types/offer.tsx';
 import {CITIES, NameSpace} from '@/constants/constants.ts';
+import {createSelector} from '@reduxjs/toolkit';
 
 type FavoriteOffersByCity = {
   city: string;
@@ -15,19 +16,17 @@ export const getCountFavorites = (state: State): number => state[NameSpace.Main]
 export const getDataLoadingStatus = (state: State): boolean => state[NameSpace.Main].isDataLoading;
 export const getError = (state: State): string | null => state[NameSpace.Main].error;
 
-export const getFilterFavoriteOffers = (state: State): FavoriteOffersByCity => {
-  const favorites: FavoriteOffersByCity = [];
-  CITIES.map((city) => {
-    favorites.push(
-      {
-        city: state[NameSpace.Main].city.name,
-        offers: state[NameSpace.Main].favorites.filter((favorite) => favorite.city.name === city.name),
-      }
-    );
-  });
-  return favorites;
-};
+export const getFilterFavoriteOffers = (state: State): FavoriteOffersByCity =>
+  CITIES.reduce<FavoriteOffersByCity>((acc, city) => {
+    acc.push({
+      city: city.name,
+      offers: state[NameSpace.Main].favorites.filter(
+        (favorite) => favorite.city.name === city.name
+      ),
+    });
+    return acc;
+  }, []);
 
-
-export const getFilteredOffers = (state: State) =>
-  state[NameSpace.Main].offers.filter((offer) => offer.city.name === state[NameSpace.Main].city.name);
+export const getFilteredOffers = createSelector([getCity, getOffers],
+  (city, offers) => offers.filter((offer) => offer.city.name === city.name)
+);

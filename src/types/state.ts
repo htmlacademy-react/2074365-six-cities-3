@@ -2,6 +2,7 @@ import {store} from '@/store';
 import {AxiosInstance} from 'axios';
 import {RouterType} from '@/services/router';
 import {City, Comments, Offer, Offers} from '@/types/offer.tsx';
+import {Nullable} from 'vitest';
 
 
 export type State = ReturnType<typeof store.getState>;
@@ -35,7 +36,7 @@ export type OfferData = {
 }
 
 export type MapProcess = {
-  activeOfferId: string | null;
+  activeOfferId: Nullable<string>;
 }
 
 export type CommentsProcess = {
