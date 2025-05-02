@@ -7,6 +7,7 @@ import {
   fetchOffersAction,
   logoutAction
 } from '@/store/api-actions.ts';
+import {RequestStatus} from '@/types/user.ts';
 
 const initialState: MainData = {
   city: CITIES[0],
@@ -14,6 +15,7 @@ const initialState: MainData = {
   offers: [],
   favorites: [],
   isDataLoading: false,
+  offersLoadingStatus: RequestStatus.Idle,
   error: null,
 };
 
@@ -31,10 +33,12 @@ export const mainDataSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
+        state.offersLoadingStatus = RequestStatus.Loading;
         state.isDataLoading = true;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
+        state.offersLoadingStatus = RequestStatus.Success;
         state.isDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
