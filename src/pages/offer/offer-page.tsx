@@ -31,6 +31,7 @@ import {
   getCommentsLoadingStatus,
   getCountComments
 } from '@/store/comments-data/comments-data.selectors.ts';
+import {setActiveOfferId} from '@/store/map-process/map-process.slice.ts';
 
 
 const DEFAULT_START_INDEX = 0;
@@ -53,6 +54,14 @@ function OfferPage(): JSX.Element {
       dispatch(fetchCommentsAction(id));
     }
     setIsInitialLoad(false);
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(setActiveOfferId(id));
+
+    return () => {
+      dispatch(setActiveOfferId(null));
+    };
   }, [dispatch, id]);
 
   const currentOffer = useAppSelector(getOffer);
@@ -151,7 +160,6 @@ function OfferPage(): JSX.Element {
         <LocationMap
           classType="offer"
           offers={dataMap}
-          activeOfferId={currentOffer.id}
         />
       </section>
       <div className="container">

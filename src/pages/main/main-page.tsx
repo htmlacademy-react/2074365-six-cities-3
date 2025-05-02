@@ -6,7 +6,8 @@ import MainCities from '@/pages/main/components/main-cities-component.tsx';
 import {Helmet} from 'react-helmet-async';
 import {fetchOffersAction} from '@/store/api-actions.ts';
 import SpinnerComponent from 'components/spinner/spinner-component.tsx';
-import {getCity, getDataLoadingStatus, getFilteredOffers} from '@/store/main-data/main-data.selectors.ts';
+import {getCity, getFilteredOffers, getOffersLoadingStatus} from '@/store/main-data/main-data.selectors.ts';
+import {RequestStatus} from '@/types/user.ts';
 
 
 function MainPage(): JSX.Element {
@@ -14,23 +15,21 @@ function MainPage(): JSX.Element {
 
   const currentCity = useAppSelector(getCity);
   const currentOffers = useAppSelector(getFilteredOffers);
-  const isDataLoading = useAppSelector(getDataLoadingStatus);
+  const offersLoadingStatus = useAppSelector(getOffersLoadingStatus);
 
   useEffect(() => {
-    if (currentOffers.length !== 0) {
-      return;
+    if (offersLoadingStatus === RequestStatus.Idle) {
+      dispatch(fetchOffersAction());
     }
 
-    dispatch(fetchOffersAction());
-  }, [dispatch, currentOffers.length]);
+  }, [dispatch, offersLoadingStatus]);
 
-  if (isDataLoading) {
-    return (
-      <SpinnerComponent/>
-    );
+  if (offersLoadingStatus === RequestStatus.Idle || offersLoadingStatus === RequestStatus.Loading) {
+    return <SpinnerComponent/>;
   }
 
   const isEmpty = currentOffers.length === 0;
+
   return (
     <main className="page__main page__main--index">
       <Helmet>

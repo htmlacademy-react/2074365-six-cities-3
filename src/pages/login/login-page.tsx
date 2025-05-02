@@ -11,7 +11,7 @@ import {setCity} from '@/store/main-data/main-data.slice.ts';
 import {getErrorMessage} from '@/store/comments-data/comments-data.selectors.ts';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PASSWORD_PATTERN = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{9,15}$/;
+const PASSWORD_PATTERN = /^(?=.*[A-Za-z])(?=.*\d).+$/;
 
 function LoginPage(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -40,7 +40,7 @@ function LoginPage(): JSX.Element {
     }
 
     if (!PASSWORD_PATTERN.test(password)) {
-      toast.error('Пароль должен содержать 9-15 символов, включая буквы и цифры');
+      toast.error('Пароль должен состоять минимум из одной буквы и цифры');
       return;
     }
 

@@ -9,6 +9,7 @@ type MainCitiesPlaceProps = {
 }
 
 function MainCitiesPlaceComponent({offers, onOfferActionId}: MainCitiesPlaceProps): JSX.Element {
+  const sizes = {width: 260, height: 200};
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -16,7 +17,7 @@ function MainCitiesPlaceComponent({offers, onOfferActionId}: MainCitiesPlaceProp
         <Card
           offer={value}
           classType='city'
-          sizeImage={{width: 260, height: 200}}
+          sizeImage={sizes}
           onCardHover={onOfferActionId}
           key={value.id}
         />

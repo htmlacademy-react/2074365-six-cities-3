@@ -7,7 +7,6 @@ import {AuthData, User} from '@/types/user.ts';
 import {dropToken, saveToken} from '@/services/token.ts';
 import {sortByDateDescending} from '@/utils/sort-helper.ts';
 import {generatePath} from 'react-router-dom';
-import {resetFavorites} from '@/store/main-data/main-data.slice.ts';
 
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, ThunkApiConfig>(
@@ -108,7 +107,6 @@ export const logoutAction = createAsyncThunk<void, undefined, ThunkApiConfig>(
   async (_arg, {dispatch, extra: {api}}) => {
     await api.delete(ApiEndpoints.LOGOUT);
     dropToken();
-    dispatch(resetFavorites());
     dispatch(fetchOffersAction());
   },
 );

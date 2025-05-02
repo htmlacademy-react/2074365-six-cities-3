@@ -1,7 +1,13 @@
 import {MainData} from '@/types/state.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CITIES, NameSpace, SortType} from '@/constants/constants.ts';
-import {fetchFavoritesAction, fetchFavoritesStatusAction, fetchOffersAction} from '@/store/api-actions.ts';
+import {
+  fetchFavoritesAction,
+  fetchFavoritesStatusAction,
+  fetchOffersAction,
+  logoutAction
+} from '@/store/api-actions.ts';
+import {RequestStatus} from '@/types/user.ts';
 
 const initialState: MainData = {
   city: CITIES[0],
@@ -9,6 +15,7 @@ const initialState: MainData = {
   offers: [],
   favorites: [],
   isDataLoading: false,
+  offersLoadingStatus: RequestStatus.Idle,
   error: null,
 };
 
@@ -21,18 +28,17 @@ export const mainDataSlice = createSlice({
     },
     setSorting(state, action: PayloadAction<string>) {
       state.sorting = action.payload;
-    },
-    resetFavorites(state) {
-      state.favorites = [];
-    },
+    }
   },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
+        state.offersLoadingStatus = RequestStatus.Loading;
         state.isDataLoading = true;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
+        state.offersLoadingStatus = RequestStatus.Success;
         state.isDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
@@ -50,6 +56,9 @@ export const mainDataSlice = createSlice({
         state.isDataLoading = false;
         state.error = 'Ошибка загрузки';
       })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.favorites = [];
+      })
       .addCase(fetchFavoritesStatusAction.fulfilled, (state, action) => {
         if (action.payload.isFavorite) {
           state.favorites.push(action.payload);
@@ -60,4 +69,4 @@ export const mainDataSlice = createSlice({
   }
 });
 
-export const {setCity, setSorting, resetFavorites} = mainDataSlice.actions;
+export const {setCity, setSorting} = mainDataSlice.actions;

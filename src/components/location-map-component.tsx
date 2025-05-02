@@ -4,15 +4,17 @@ import {Offers} from '@/types/offer.tsx';
 import leaflet, {layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '@/hooks/use-map.tsx';
+import {useAppSelector} from '@/hooks';
+import {getActiveOfferId} from '@/store/map-process/map-process.selectors.ts';
 
 
 type LocationMapProps = {
   classType: 'city' | 'offer';
   offers: Offers;
-  activeOfferId?: string | null;
 }
 
-function LocationMapComponent({classType, offers, activeOfferId}: LocationMapProps): JSX.Element {
+function LocationMapComponent({classType, offers}: LocationMapProps): JSX.Element {
+  const activeOfferId = useAppSelector(getActiveOfferId);
   const offerClasses = useMemo(() => Classes[classType], [classType]);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const {location} = useMemo(() => offers[0].city, [offers]);
