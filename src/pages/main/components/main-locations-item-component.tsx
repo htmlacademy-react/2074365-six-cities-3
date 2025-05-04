@@ -1,6 +1,6 @@
 import {JSX, memo} from 'react';
 import {Link} from 'react-router-dom';
-import {City} from '@/types/offer.tsx';
+import {City} from '@/types/offer.ts';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import clsx from 'clsx';
 import {setCity} from '@/store/main-data/main-data.slice.ts';

@@ -1,7 +1,7 @@
 import {JSX, memo} from 'react';
 import Card from 'components/card-component.tsx';
 import {Nullable} from 'vitest';
-import {Offer} from '@/types/offer.tsx';
+import {Offer} from '@/types/offer.ts';
 
 type MainCitiesPlaceProps = {
   offers: Offer[];

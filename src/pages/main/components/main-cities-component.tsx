@@ -2,7 +2,7 @@ import {JSX, memo, useCallback, useMemo} from 'react';
 import MainPlacesSorting from '@/pages/main/components/main-places-sorting-component.tsx';
 import MainCitiesPlace from '@/pages/main/components/main-cities-place-component.tsx';
 import LocationMap from 'components/location-map-component.tsx';
-import {City, Offer} from '@/types/offer.tsx';
+import {City, Offer} from '@/types/offer.ts';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import {Nullable} from 'vitest';
 import {getSortedOffers} from '@/utils/sort-helper.ts';

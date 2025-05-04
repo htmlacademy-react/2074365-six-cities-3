@@ -1,6 +1,6 @@
 import {JSX, memo} from 'react';
 import Card from 'components/card-component.tsx';
-import {Offers} from '@/types/offer.tsx';
+import {Offers} from '@/types/offer.ts';
 
 const MIN_OFFERS_TO_SHOW = 0;
 const MAX_OFFERS_TO_SHOW = 3;

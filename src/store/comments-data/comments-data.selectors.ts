@@ -1,6 +1,6 @@
 import {State} from '@/types/state';
 import {NameSpace} from '@/constants/constants.ts';
-import {Comments} from '@/types/offer.tsx';
+import {Comments} from '@/types/offer.ts';
 import {createSelector} from '@reduxjs/toolkit';
 
 const DEFAULT_START_INDEX = 0;

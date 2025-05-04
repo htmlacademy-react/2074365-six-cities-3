@@ -17,3 +17,5 @@ export const selectLoginStatus = createSelector([getStatus], (status) => ({
   isLoading: status === RequestStatus.Loading,
   isSuccess: status === RequestStatus.Success,
 }));
+
+export const getAuthError = (state: State): string | null => state[NameSpace.User].error;

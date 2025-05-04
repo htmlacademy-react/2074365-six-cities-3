@@ -1,6 +1,6 @@
 import {JSX, memo} from 'react';
 import OfferReviewsItem from './offer-reviews-item-component.tsx';
-import {Comments} from '@/types/offer.tsx';
+import {Comments} from '@/types/offer.ts';
 
 
 function OfferReviewsListComponent({comments}: { comments: Comments }): JSX.Element {

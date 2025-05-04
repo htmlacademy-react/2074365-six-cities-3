@@ -1,6 +1,6 @@
 import {JSX, memo, useEffect, useMemo, useRef} from 'react';
 import {ActiveMarkerIcon, Classes, DefaultMarkerIcon} from '../constants/constants.ts';
-import {Offers} from '@/types/offer.tsx';
+import {Offers} from '@/types/offer.ts';
 import leaflet, {layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '@/hooks/use-map.tsx';

@@ -1,7 +1,7 @@
 import {store} from '@/store';
 import {AxiosInstance} from 'axios';
 import {RouterType} from '@/services/router';
-import {City, Comments, Offer, Offers} from '@/types/offer.tsx';
+import {City, Comments, Offer, Offers} from '@/types/offer.ts';
 import {Nullable} from 'vitest';
 import {RequestStatus} from '@/types/user.ts';
 

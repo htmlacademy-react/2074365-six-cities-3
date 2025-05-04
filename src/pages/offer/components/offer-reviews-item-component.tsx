@@ -1,6 +1,6 @@
 import {JSX, memo} from 'react';
 import {format, parseISO} from 'date-fns';
-import {Comment} from '@/types/offer.tsx';
+import {Comment} from '@/types/offer.ts';
 
 
 function OfferReviewsItemComponent({review}: { review: Comment }): JSX.Element {
