@@ -1,5 +1,5 @@
 import {State} from '@/types/state';
-import {City, Offers} from '@/types/offer.tsx';
+import {City, Offers} from '@/types/offer.ts';
 import {CITIES, NameSpace} from '@/constants/constants.ts';
 import {createSelector} from '@reduxjs/toolkit';
 import {RequestStatus} from '@/types/user.ts';
@@ -18,16 +18,22 @@ export const getDataLoadingStatus = (state: State): boolean => state[NameSpace.M
 export const getOffersLoadingStatus = (state: State): RequestStatus => state[NameSpace.Main].offersLoadingStatus;
 export const getError = (state: State): string | null => state[NameSpace.Main].error;
 
-export const getFilterFavoriteOffers = (state: State): FavoriteOffersByCity =>
+export const getFilterFavoriteOffers = createSelector([getFavorites], (favorites) =>
   CITIES.reduce<FavoriteOffersByCity>((acc, city) => {
-    acc.push({
-      city: city.name,
-      offers: state[NameSpace.Main].favorites.filter(
-        (favorite) => favorite.city.name === city.name
-      ),
-    });
+    const cityFavorites = favorites.filter(
+      (favorite) => favorite.city.name === city.name
+    );
+
+    if (cityFavorites.length > 0) {
+      acc.push({
+        city: city.name,
+        offers: cityFavorites,
+      });
+    }
+
     return acc;
-  }, []);
+  }, [])
+);
 
 export const getFilteredOffers = createSelector([getCity, getOffers],
   (city, offers) => offers.filter((offer) => offer.city.name === city.name)

@@ -1,5 +1,5 @@
 import {JSX, memo, useMemo} from 'react';
-import {Offer} from '../types/offer.tsx';
+import {Offer} from '../types/offer.ts';
 import {AppRoute, Classes} from '../constants/constants.ts';
 import BadgeOfferMark from './badge-offer-mark-component.tsx';
 import {generatePath, Link} from 'react-router-dom';

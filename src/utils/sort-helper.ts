@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {Comments, Offer} from '@/types/offer.tsx';
+import {Comments, Offer} from '@/types/offer.ts';
 import {SortType} from '@/constants/constants.ts';
 
 

@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {FAVORITE_STATUS, ThunkApiConfig} from '@/types/state.ts';
 import {redirectToRoute} from '@/store/action.ts';
-import {Comment, Comments, Offer, Offers} from '@/types/offer.tsx';
+import {Comment, Comments, Offer, Offers} from '@/types/offer.ts';
 import {ApiEndpoints, AppRoute} from '@/constants/constants.ts';
 import {AuthData, User} from '@/types/user.ts';
 import {dropToken, saveToken} from '@/services/token.ts';

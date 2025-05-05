@@ -1,7 +1,7 @@
 import {JSX, memo} from 'react';
 import FavoritesLocations from './favorites-locations-component.tsx';
 import Card from 'components/card-component.tsx';
-import {Offer} from '@/types/offer.tsx';
+import {Offer} from '@/types/offer.ts';
 
 type FavoritesItemsProps = {
   city: string;
