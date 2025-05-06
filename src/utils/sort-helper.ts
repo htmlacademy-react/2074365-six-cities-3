@@ -21,3 +21,6 @@ export const getSortedOffers = ((data: Offer[], sortingType: string) => {
 
 export const sortByDateDescending = (data: Comments): Comments =>
   data.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
+
+export const capitalizeFirstLetter = (str: string) =>
+  str ? str[0].toUpperCase() + str.slice(1) : str;

@@ -28,7 +28,9 @@ function MainCitiesComponent({currentCity, currentOffers}: MainCitiesPlacesProps
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{sortedOffers.length} places to stay in {currentCity.name}</b>
+        <b className="places__found">
+          {sortedOffers.length} {sortedOffers.length === 1 ? 'place' : 'places'} to stay in {currentCity.name}
+        </b>
         <MainPlacesSorting/>
         <MainCitiesPlace
           offers={sortedOffers}

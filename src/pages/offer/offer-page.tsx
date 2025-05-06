@@ -7,9 +7,8 @@ import {fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction} from '@/
 import SpinnerComponent from 'components/spinner/spinner-component.tsx';
 import OfferGallery from '@/pages/offer/components/offer-gallery-component.tsx';
 import OfferUserStatusComponent from '@/pages/offer/components/offer-user-status-component.tsx';
-import OfferFeaturesListComponent from '@/pages/offer/components/offer-features-list-component.tsx';
+import OfferFeaturesList from '@/pages/offer/components/offer-features-list-component.tsx';
 import OfferInsideList from '@/pages/offer/components/offer-inside-list-component.tsx';
-import OfferDescriptionComponent from '@/pages/offer/components/offer-description-component.tsx';
 import clsx from 'clsx';
 import BookmarkButton from 'components/bookmark-button-component.tsx';
 import BadgeOfferMark from 'components/badge-offer-mark-component.tsx';
@@ -86,6 +85,10 @@ function OfferPage(): JSX.Element {
     price,
     title,
     isPremium,
+    description,
+    type,
+    bedrooms,
+    maxAdults
   } = currentOffer;
 
   const {
@@ -122,7 +125,12 @@ function OfferPage(): JSX.Element {
               </div>
               <span className="offer__rating-value rating__value">{rating}</span>
             </div>
-            <OfferFeaturesListComponent/>
+            <
+              OfferFeaturesList
+              type={type}
+              bedrooms={bedrooms}
+              maxAdults={maxAdults}
+            />
             <div className="offer__price">
               <b className="offer__price-value">&euro;{price}</b>
               <span className="offer__price-text">&nbsp;night</span>
@@ -142,7 +150,9 @@ function OfferPage(): JSX.Element {
                 <span className="offer__user-name">{name}</span>
                 {isPro && <OfferUserStatusComponent text="Pro"/>}
               </div>
-              <OfferDescriptionComponent/>
+              <div className="offer__description">
+                <p className="offer__text">{description}</p>
+              </div>
             </div>
             {isCommentsLoading
               ? <SpinnerComponent/>

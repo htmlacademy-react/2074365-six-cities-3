@@ -11,7 +11,6 @@ const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 300;
 const DEFAULT_RATING = 0;
 const RATING_FIELD_NAME = 'rating';
-const COMMENT_FIELD_NAME = 'comment';
 const EMPTY = '';
 
 function OfferReviewsFormComponent(): JSX.Element {
@@ -27,10 +26,6 @@ function OfferReviewsFormComponent(): JSX.Element {
 
   const handleChange = useCallback((evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
-
-    if (name === COMMENT_FIELD_NAME && value.length > MAX_REVIEW_LENGTH) {
-      return;
-    }
 
     setReviewState((prev) => ({
       ...prev,
@@ -120,10 +115,10 @@ function OfferReviewsFormComponent(): JSX.Element {
           className="reviews__submit form__submit button" type="submit"
           disabled=
             {
-              reviewState.comment.length < MIN_REVIEW_LENGTH
-              || reviewState.comment.length > MAX_REVIEW_LENGTH
-              || reviewState.rating === DEFAULT_RATING
-              || isReviewLoading
+              reviewState.comment.length < MIN_REVIEW_LENGTH ||
+              reviewState.comment.length > MAX_REVIEW_LENGTH ||
+              reviewState.rating === DEFAULT_RATING ||
+              isReviewLoading
             }
         >
           Submit
