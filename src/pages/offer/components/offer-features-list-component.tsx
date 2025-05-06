@@ -1,20 +1,32 @@
-import {JSX} from 'react';
+import {JSX, memo} from 'react';
+import {pluralize} from '@/utils/string-helper.ts';
+import {capitalizeFirstLetter} from '@/utils/sort-helper.ts';
 
-function OfferFeaturesListComponent(): JSX.Element {
+type OfferFeaturesProps = {
+  type: string;
+  bedrooms: number;
+  maxAdults: number;
+};
+
+function OfferFeaturesListComponent({type, bedrooms, maxAdults}: OfferFeaturesProps): JSX.Element {
+  const bedroomsCount = pluralize(bedrooms, 'Bedroom');
+  const adultsCount = `Max ${pluralize(maxAdults, 'adult')}`;
 
   return (
     <ul className="offer__features">
       <li className="offer__feature offer__feature--entire">
-        Apartment
+        {capitalizeFirstLetter(type)}
       </li>
       <li className="offer__feature offer__feature--bedrooms">
-        3 Bedrooms
+        {bedroomsCount}
       </li>
       <li className="offer__feature offer__feature--adults">
-        Max 4 adults
+        {adultsCount}
       </li>
     </ul>
   );
 }
 
-export default OfferFeaturesListComponent;
+const OfferFeaturesList = memo(OfferFeaturesListComponent);
+
+export default OfferFeaturesList;

@@ -40,12 +40,14 @@ function BookmarkButtonComponent({
     dispatch(fetchFavoritesStatusAction({offerId: offerId, isFavorite: !isFavorite}));
   };
 
+  const isActive = isFavorite && AuthorizationStatus.Auth === authorizationStatus;
+
   return (
     <button
       className={
         clsx(`${buttonClasses.button}`,
           'button',
-          isFavorite && `${buttonClasses.buttonActive}`)
+          isActive && `${buttonClasses.buttonActive}`)
       }
       type="button"
       onClick={handleClick}

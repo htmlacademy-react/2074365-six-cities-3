@@ -8,6 +8,7 @@ import {fetchOffersAction} from '@/store/api-actions.ts';
 import SpinnerComponent from 'components/spinner/spinner-component.tsx';
 import {getCity, getFilteredOffers, getOffersLoadingStatus} from '@/store/main-data/main-data.selectors.ts';
 import {RequestStatus} from '@/types/user.ts';
+import clsx from 'clsx';
 
 
 function MainPage(): JSX.Element {
@@ -31,7 +32,7 @@ function MainPage(): JSX.Element {
   const isEmpty = currentOffers.length === 0;
 
   return (
-    <main className="page__main page__main--index">
+    <main className={clsx('page__main page__main--index', {'page__main--index-empty': isEmpty})}>
       <Helmet>
         <title>{currentCity.name}</title>
       </Helmet>

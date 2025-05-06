@@ -30,13 +30,13 @@ export const commentsDataSlice = createSlice({
         state.isCommentsLoading = false;
         state.error = 'Ошибка загрузки';
       })
+      .addCase(addCommentAction.pending, (state) => {
+        state.isReviewLoading = true;
+      })
       .addCase(addCommentAction.fulfilled, (state, action) => {
         state.comments.splice(0, 0, action.payload);
         state.countComments++;
         state.isReviewLoading = false;
-      })
-      .addCase(addCommentAction.pending, (state) => {
-        state.isReviewLoading = true;
       })
       .addCase(addCommentAction.rejected, (state) => {
         state.isReviewLoading = false;
